@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from "react-redux"
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Avatar } from '@chakra-ui/react';
 import StyleColorMode from '../StyleColorMode/StyleColorMode';
 import { useColorModeValue } from "@chakra-ui/react";
+import UserMenu from '../UserMenu/UserMenu';
+
 
 const Navbar = React.memo(() => {
   console.log("---Render Navbar");
@@ -19,6 +21,7 @@ const Navbar = React.memo(() => {
       <Heading as='h3' size='md' color={'white'}>
         {title}
       </Heading>
+      <UserMenu></UserMenu>
     </Flex>
   )
 })
