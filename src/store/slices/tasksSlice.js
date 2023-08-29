@@ -11,7 +11,7 @@ const tasksSlice = createSlice({
       const newTask = {
         task: action.payload.textTask,
         status: 'work',
-        dataEnd: Date.now()
+        dataAdd: Date.now()
       }
       console.log("▶ ⇛ action:", action);
       state[action.payload.pageNum].unshift(newTask)

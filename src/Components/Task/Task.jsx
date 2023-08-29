@@ -64,6 +64,7 @@ export default function Task({ itemData }) {
 
         <Text
           overflow={'hidden'} whiteSpace={'nowrap'} textOverflow={'ellipsis'}
+          userSelect={'none'}
           margin={'auto'}
           pl={['0.5rem', '1rem']}
           w={'100%'}

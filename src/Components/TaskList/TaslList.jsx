@@ -31,9 +31,7 @@ export default function TaslList({ activeMenu, visibleList }) {
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
-        {pageNum !== 1 && 
-        <AddTaskModal></AddTaskModal>
-        }
+        {pageNum !== 1 && <AddTaskModal></AddTaskModal>}
       </Flex>
 
       {visibleList.length
