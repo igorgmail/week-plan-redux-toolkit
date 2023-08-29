@@ -43,7 +43,7 @@ export default function StyleColorMode() {
   return (
 
     <Button onClick={toggleColorMode} variant={'ghost'} size='md'>
-      {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+      {colorMode === 'light' ? <MoonIcon color={'#e2e8f0'} /> : <SunIcon />}
     </Button>
   )
 }

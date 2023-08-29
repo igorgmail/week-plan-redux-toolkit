@@ -7,12 +7,12 @@ import { Button, Flex } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import { useDisclosure } from '@chakra-ui/react'
 
-import AlternativeBody from "./AlternativeBody"
+import AlertConfirm from "./AlertConfirm"
 // Button
 import CloseButton from "./Button/CloseButton" 
 
 // actions
-import actions from "../../store/reducers/actionsGenerate"
+import { checkAllDone, removeAllFromOneTab } from "../../store/slices/tasksSlice"
 
 
 const AllTaskSettingModal = React.memo(({ visibleList }) => {
@@ -23,6 +23,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
+  const menu = useSelector((store) => store.app.menu)
   // AllDone for modal Все выполненны tru || false не все выполненны
   const [statusAll, setStatusAll] = useState()
 
@@ -31,25 +32,29 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
   const checkAllHandler = (statusCheckAll) => {
     // Отмечаем все
     if (!statusCheckAll) {
-      dispatch(actions.checkAllDone(pageNum, true))
+      dispatch(checkAllDone({ pageNum, status: true }))
       onClose()
     }
     // Снимаем метки со всех
     if (statusCheckAll) {
-      dispatch(actions.checkAllDone(pageNum, false))
+      dispatch(checkAllDone({ pageNum, status: false }))
       onClose()
     }
   }
 
+  let titleForAlert = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать';
   const deleteAllHandler = () => {
     console.log("DELETE ALl Handler");
+    titleForAlert = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
+    console.log("▶ ⇛ titleForAlert:", titleForAlert);
     setShowAlert(true)
   }
 
+  // Окно подтверждения удаления
   const alertHandler = (result) => {
     if (result) {
       console.log("Будет все удалено");
-      dispatch(actions.deleteAllItemDay(pageNum))
+      dispatch(removeAllFromOneTab({ pageNum, menu }))
     } else {
       console.log("Была отмена");
     }
@@ -76,11 +81,11 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent m={'auto 1rem'}>
-          <ModalHeader>Все Задачи</ModalHeader>
+          <ModalHeader>{titleForAlert}</ModalHeader>
           <ModalCloseButton />
 
           <ModalBody m={3}>
-            {showAlert ? (<AlternativeBody text={'Удалить все ?'} alertHandler={alertHandler}></AlternativeBody>) :
+            {showAlert ? (<AlertConfirm text={`Удалить все из ${titleForAlert}?`} alertHandler={alertHandler}></AlertConfirm>) :
 
             <Flex w={'100%'} justifyContent={'space-between'} flexDirection={'column'} gap={4}>
                 <Button onClick={() => checkAllHandler(statusAll)} color={'white'} backgroundColor={'#2a9d8f'}>

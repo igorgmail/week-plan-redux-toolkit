@@ -3,14 +3,13 @@ import React, { useEffect, useState, useRef, useCallback } from "react"
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 // actions
-import actions from "../../store/reducers/actionsGenerate"
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Flex, Textarea, Badge } from "@chakra-ui/react"
 
 import textCoctroller from "../../controller/textCoctroller"
 
-
+import { updateTask, deleteTask } from '../../store/slices/tasksSlice'
 // Buttons
 import SaveButton from "./Buttons/SaveButton"
 import EditButton from "./Buttons/EditButton"
@@ -45,14 +44,14 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
     const textValue = modalBodyRef.current.querySelector('textarea').value
     const itemIndex = itemDataForModal.index
     if (textCoctroller.isEmpty(textValue)) {
-      dispatch(actions.updatiItem(pageNum, { itemIndex, textValue }))
+      dispatch(updateTask({ pageNum, itemIndex, textValue }))
     } else {
       return
     }
   }
 
   const deleteItemHandler = (index) => {
-    dispatch(actions.deleteItem(pageNum, index))
+    dispatch(deleteTask({ pageNum, index }))
   }
 
   // Закрывайте модальное окно и предотвращайте переход назад при нажатии кнопки "назад"

@@ -8,7 +8,7 @@ import { CheckIcon } from '@chakra-ui/icons'
 import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
 
 // actions
-import actions from "../../store/reducers/actionsGenerate"
+import { toggleStatus, sortByDone } from "../../store/slices/tasksSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Task({ itemData }) {
@@ -41,8 +41,8 @@ export default function Task({ itemData }) {
 
   const toogleStatusButton = (e) => {
     const dataItem = e.target.closest('.task-input').dataset.itemIndex
-    dispatch(actions.toogleStatus(pageNum, dataItem))
-    dispatch(actions.sortByDone(pageNum))
+    dispatch(toggleStatus({ pageNum, dataItem }))
+    dispatch(sortByDone(pageNum))
   }
 
   return (
@@ -64,6 +64,7 @@ export default function Task({ itemData }) {
 
         <Text
           overflow={'hidden'} whiteSpace={'nowrap'} textOverflow={'ellipsis'}
+          userSelect={'none'}
           margin={'auto'}
           pl={['0.5rem', '1rem']}
           w={'100%'}

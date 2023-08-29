@@ -25,15 +25,13 @@ export default function TaslList({ activeMenu, visibleList }) {
     <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
       <Flex alignItems={'center'} justifyContent={'space-between'}>
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
-        {/* Modal Для всех задач */}
 
-        <AllTaskSettingModal visibleList={visibleListMemo} />
+        {/* Modal Для всех задач */}
+        {visibleList.length > 0 ? (<AllTaskSettingModal visibleList={visibleListMemo} />) : (<></>)}
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
-        {pageNum !== 1 && 
-        <AddTaskModal></AddTaskModal>
-        }
+        {pageNum !== 1 && <AddTaskModal></AddTaskModal>}
       </Flex>
 
       {visibleList.length
