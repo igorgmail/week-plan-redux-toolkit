@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 import { Container, Button, Grid, GridItem } from '@chakra-ui/react'
 
-import { setMenu } from "../../store/reducers/appReducer"
+import { setMenu } from "../../store/slices/appSlice"
 
 const Menu = React.memo(() => {
   console.log("---Render Menu");

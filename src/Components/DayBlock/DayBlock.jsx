@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Flex, Button, Box } from "@chakra-ui/react";
 import WhatDayBlock from "../WhatDayBlock/WhatDayBlock";
-import { setPage, setMenu } from "../../store/reducers/appReducer";
+import { setPage, setMenu } from "../../store/slices/appSlice";
 
 
 const DayBlock = React.memo(() => {

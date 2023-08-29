@@ -1,4 +1,4 @@
-const initStateAllTasks = {
+const mockTasks = {
   1: [{
     task: 'Это первая тестовая задача Прошлого',
     status: 'work',
@@ -41,4 +41,15 @@ const initStateAllTasks = {
   }],
 }
 
-export default initStateAllTasks;
+const initState = () => {
+  const dayDataFromLocal = localStorage.getItem('wp_tasks');
+  let dataTaskList;
+  if (dayDataFromLocal) {
+    dataTaskList = JSON.parse(dayDataFromLocal)
+  } else {
+    dataTaskList = mockTasks
+  }
+  return dataTaskList
+
+}
+export default initState();

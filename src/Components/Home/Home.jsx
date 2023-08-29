@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux";
 
 import Navbar from "../Navbar/Navbar"
@@ -12,6 +12,8 @@ export default function Home() {
   console.log("---Render Home");
 
   const pageNum = useSelector((store) => store.app.page)
+  const tasks = useSelector((store) => store.tasks)
+  // console.log("▶ ⇛ tasks:", tasks);
 
   // Все задачи обьект в ключах массив обьектов с задачами {1: [Прошлое], 2:[Сегодня], 3:[Завтра], 4: [Неделя] }
   let stateFromReducer = useSelector((store) => store.tasks)
@@ -26,6 +28,15 @@ export default function Home() {
     if (activeMenu === 'done') return stateList.filter((el) => el.status === 'done')
     if (activeMenu === 'work') return stateList.filter((el) => el.status === 'work')
   })()
+
+
+  useEffect(() => {
+    // Этот код будет выполнен при каждом изменении в объекте tasks
+    console.log('Tasks have changed:', tasks);
+    localStorage.setItem('wp_tasks', JSON.stringify(tasks))
+    // Здесь вы можете выполнить другие действия или обновить компонент
+  }, [tasks]);
+
 
   return (
     <>

@@ -7,7 +7,8 @@ import { AddIcon } from '@chakra-ui/icons'
 
 import textCoctroller from "../../controller/textCoctroller"
 // actions
-import actions from "../../store/reducers/actionsGenerate"
+// import actions from "../../store/reducers/actionsGenerate"
+import { addTask } from "../../store/slices/tasksSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 
@@ -23,7 +24,7 @@ const AddTaskModal = React.memo(() => {
     const textTask = modalTextareaRef.current.value
 
     if (textCoctroller.isEmpty(textTask)) {
-      dispatch(actions.addTask(pageNum, textTask))
+      dispatch(addTask({ pageNum, textTask }))
       onClose()
     } else return
   }

@@ -6,7 +6,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 export default function UserMenu() {
   return (
     <Menu>
-      <MenuButton rightIcon={<ChevronDownIcon />}>
+      <MenuButton >
         <Avatar size={'sm'}></Avatar>
       </MenuButton>
       <MenuList>
