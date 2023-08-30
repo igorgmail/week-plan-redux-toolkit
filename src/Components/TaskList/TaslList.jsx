@@ -1,5 +1,4 @@
 import React from "react"
-import { v4 as uuidv4 } from 'uuid'
 import { useMemo } from "react"
 import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 
@@ -9,6 +8,7 @@ import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { useSelector } from "react-redux";
 
 export default function TaslList({ activeMenu, visibleList }) {
+  console.log("▶ ⇛ visibleList:", visibleList);
   console.log("---Render TaskList");
 
   const pageNum = useSelector((store) => store.app.page)
@@ -37,7 +37,7 @@ export default function TaslList({ activeMenu, visibleList }) {
       {visibleList.length
         ?
         (visibleList.map((el, ind) => (
-          <Task itemData={[el, ind]} key={uuidv4()} data={ind}></Task>
+          <Task itemData={[el, ind]} key={el.key} data={ind}></Task>
         )))
         :
         (

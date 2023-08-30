@@ -12,6 +12,7 @@ import { toggleStatus, sortByDone } from "../../store/slices/tasksSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Task({ itemData }) {
+  console.log("▶ ⇛ itemData:", itemData);
   console.log("---Render Task");
   const taskDoneBg = useColorModeValue("light.taskDoneBg", "dark.taskDoneBg");
 

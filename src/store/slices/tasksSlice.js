@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import initState from "../lib/initStateAllTasks.js";
+import { v4 as uuidv4 } from 'uuid'
 
 const tasksSlice = createSlice({
   name: 'tasks',
@@ -11,7 +12,8 @@ const tasksSlice = createSlice({
       const newTask = {
         task: action.payload.textTask,
         status: 'work',
-        dataAdd: Date.now()
+        dataAdd: Date.now(),
+        key: uuidv4()
       }
       console.log("▶ ⇛ action:", action);
       state[action.payload.pageNum].unshift(newTask)
