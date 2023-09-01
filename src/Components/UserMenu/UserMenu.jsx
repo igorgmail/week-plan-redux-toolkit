@@ -7,14 +7,12 @@ export default function UserMenu() {
   return (
     <Menu>
       <MenuButton >
-        <Avatar size={'sm'}></Avatar>
+        <Avatar size={['xs', 'sm']}></Avatar>
       </MenuButton>
       <MenuList>
         <MenuItem>Войти</MenuItem>
-        <MenuItem>Create a Copy</MenuItem>
-        <MenuItem>Mark as Draft</MenuItem>
-        <MenuItem>Delete</MenuItem>
-        <MenuItem>Attend a Workshop</MenuItem>
+        <MenuItem>Настройки</MenuItem>
+        <MenuItem>Информация</MenuItem>
       </MenuList>
     </Menu>
   )

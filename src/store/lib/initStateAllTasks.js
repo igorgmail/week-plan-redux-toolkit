@@ -51,7 +51,7 @@ const mockTasks = {
   }],
 }
 
-const initState = () => {
+const initStateAllTasks = () => {
   const dayDataFromLocal = localStorage.getItem('wp_tasks');
   let dataTaskList;
   if (dayDataFromLocal) {
@@ -62,4 +62,4 @@ const initState = () => {
   return dataTaskList
 
 }
-export default initState();
+export { initStateAllTasks }

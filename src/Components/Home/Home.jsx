@@ -35,6 +35,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log('Поменяли appConfig');
+    localStorage.setItem('wp_config', JSON.stringify(appConfig))
   }, [appConfig])
   return (
     <>

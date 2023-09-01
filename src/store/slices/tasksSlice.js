@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import initState from "../lib/initStateAllTasks.js";
+import { initStateAllTasks } from "../lib/initStateAllTasks.js";
 import { v4 as uuidv4 } from 'uuid'
 
 const tasksSlice = createSlice({
   name: 'tasks',
 
-  initialState: initState,
+  initialState: initStateAllTasks,
 
   reducers: {
     addTask: (state, action) => {

@@ -1,5 +1,5 @@
-import React from "react"
-
+import React, { useState } from "react"
+import { Swipeabl } from 'react-swipeable';
 import { useDispatch, useSelector } from "react-redux";
 
 import { Flex, Button, Box } from "@chakra-ui/react";
@@ -10,6 +10,30 @@ import { setPage, setMenu } from "../../store/slices/appSlice";
 const DayBlock = React.memo(() => {
   console.log("---Render DayBlock");
 
+  //  
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
+
+  // the required distance between touchStart and touchEnd to be detected as a swipe
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e) => {
+    console.log("TOUCH STARt");
+    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
+    console.log("SWIPE");
+  }
+// 
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page) // Сегодня Завтра Неделя
 
@@ -22,10 +46,15 @@ const DayBlock = React.memo(() => {
     dispatch(setMenu('all'))
   }
 
-  return (
-    <Box w={'100%'}>
 
-      <Flex w={'100%'} flexDirection={'row'} justifyContent={'center'} gap={['0.8rem', '1.5rem', '2rem']} m={'2rem auto'}>
+
+
+  return (
+
+    <Box w={'100%'} >
+
+      <Flex onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
+        w={'100%'} flexDirection={'row'} justifyContent={'center'} gap={['0.8rem', '1.5rem', '2rem']} m={'2rem auto'}>
 
         <Button transform={pageNum === 1 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" onClick={() => chooseDayHandler(1)}>Прошлое</Button>
         <Button transform={pageNum === 2 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" onClick={() => chooseDayHandler(2)}>Сегодня</Button>
@@ -34,6 +63,7 @@ const DayBlock = React.memo(() => {
       </Flex>
       <WhatDayBlock pageNum={pageNum}></WhatDayBlock>
     </Box>
+
   )
 })
 
