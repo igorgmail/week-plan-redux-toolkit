@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Button, Flex, Textarea } from "@chakra-ui/react"
 import { AddIcon } from '@chakra-ui/icons'
+
+import VoiceToTextBlock from '../VoiceToTextBlock/VoiceToTextBlock'
 
 import textCoctroller from "../../controller/textCoctroller"
 // actions
@@ -14,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 const AddTaskModal = React.memo(() => {
 
-
+  const [textVoice, setTextVoice] = useState('')
   const pageNum = useSelector((store) => store.app.page)
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -40,7 +42,7 @@ const AddTaskModal = React.memo(() => {
         m={'auto'}
         variant={'outline'}
         colorScheme='green' size='md'
-        onClick={onOpen}
+        onClick={() => { onOpen(); setTextVoice('') }}
       >
         <AddIcon />
       </Button>
@@ -57,6 +59,7 @@ const AddTaskModal = React.memo(() => {
               resize={'vertical'}
               overflow="auto"
               autoFocus
+              defaultValue={textVoice}
             // focusBorderColor={'red.500'}
             >
             </Textarea>
@@ -64,6 +67,9 @@ const AddTaskModal = React.memo(() => {
           <ModalFooter>
             <Flex w={'100%'} justifyContent={'space-between'}>
               <Button onClick={() => addTaskHandler()} color={'white'} backgroundColor={'#2a9d8f'}>Добавить</Button>
+
+              {/* <VoiceToTextBlock setTextVoice={setTextVoice}></VoiceToTextBlock> */}
+
               <Button onClick={onClose} color={'white'} backgroundColor={'#f4a261'}>Отменить</Button>
             </Flex>
           </ModalFooter>

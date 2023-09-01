@@ -18,12 +18,14 @@ import { checkAllDone, removeAllFromOneTab } from "../../store/slices/tasksSlice
 const AllTaskSettingModal = React.memo(({ visibleList }) => {
   console.log("---Render Modal All Task Setting");
 
+  const dispatch = useDispatch()
 
   const [showAlert, setShowAlert] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const dispatch = useDispatch()
+
   const pageNum = useSelector((store) => store.app.page)
   const menu = useSelector((store) => store.app.menu)
+
   // AllDone for modal Все выполненны tru || false не все выполненны
   const [statusAll, setStatusAll] = useState()
 

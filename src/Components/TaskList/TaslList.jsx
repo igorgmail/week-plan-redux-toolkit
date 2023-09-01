@@ -8,11 +8,11 @@ import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { useSelector } from "react-redux";
 
 export default function TaslList({ activeMenu, visibleList }) {
-  console.log("▶ ⇛ visibleList:", visibleList);
   console.log("---Render TaskList");
 
   const pageNum = useSelector((store) => store.app.page)
   const visibleListMemo = useMemo(() => visibleList, [visibleList])
+
   // Стиль(цвет) для bage 
   const activeBage = ((activeMenu) => {
     if (activeMenu === 'all') return { text: 'Все Задачи', color: 'custom.task_all' }
@@ -27,11 +27,11 @@ export default function TaslList({ activeMenu, visibleList }) {
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
 
         {/* Modal Для всех задач */}
-        {visibleList.length > 0 ? (<AllTaskSettingModal visibleList={visibleListMemo} />) : (<></>)}
+        {visibleList.length > 0 && (<AllTaskSettingModal visibleList={visibleListMemo} />)}
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
-        {pageNum !== 1 && <AddTaskModal></AddTaskModal>}
+        {pageNum !== 1 && activeMenu !== 'done' && <AddTaskModal></AddTaskModal>}
       </Flex>
 
       {visibleList.length

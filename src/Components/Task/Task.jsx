@@ -1,5 +1,5 @@
 import React from "react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import { useColorModeValue } from "@chakra-ui/react";
 import { Button, Flex, InputGroup, Text } from "@chakra-ui/react"
@@ -12,7 +12,6 @@ import { toggleStatus, sortByDone } from "../../store/slices/tasksSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Task({ itemData }) {
-  console.log("▶ ⇛ itemData:", itemData);
   console.log("---Render Task");
   const taskDoneBg = useColorModeValue("light.taskDoneBg", "dark.taskDoneBg");
 
@@ -22,13 +21,16 @@ export default function Task({ itemData }) {
   const index = itemData[1]
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [itemDataForModal, setItemDataForModal] = useState({ text: null, index: null })
+
+  const [itemDataForModal, setItemDataForModal] = useState(null)
 
   const openModal = (e) => {
+    // Получаем данные для отправки в модальное окно для редактирования
     const itemIndex = e.target.dataset.itemIndex;
     const itemStatus = e.target.dataset.itemStatus;
     const itemText = e.target.innerText
-    const newData = { text: itemText, index: itemIndex, status: itemStatus };
+    const dataIKey = e.target.closest('.task-input').dataset.itemKey
+    const newData = { text: itemText, index: itemIndex, status: itemStatus, key: dataIKey };
     setItemDataForModal(newData);
     setIsModalOpen(true);
   };
@@ -36,20 +38,22 @@ export default function Task({ itemData }) {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  useEffect(() => {
 
-  })
+  // useEffect(() => {
+  //   setIsModalOpen(false);
+  //   console.log("MODAL FALSE");
+  // }, [itemData])
 
   const toogleStatusButton = (e) => {
-    const dataItem = e.target.closest('.task-input').dataset.itemIndex
-    dispatch(toggleStatus({ pageNum, dataItem }))
+    const dataIKey = e.target.closest('.task-input').dataset.itemKey
+    dispatch(toggleStatus({ pageNum, dataIKey }))
     dispatch(sortByDone(pageNum))
   }
 
   return (
     <Flex
       className={"task-input"}
-      data-item-index={index}
+      data-item-key={item.key}
       flexDirection={['column', 'column', 'row']}
       justifyContent={'space-beetween'} alignItems={'center'} w={'100%'} gap={'8px'} mb={'10px'}
     >

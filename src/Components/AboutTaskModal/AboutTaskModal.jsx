@@ -18,7 +18,6 @@ import CloseButton from "./Buttons/CloseButton"
 
 
 export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
-  console.log("▶ ⇛ itemDataForModal:", itemDataForModal);
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -37,21 +36,22 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
   const closeModalHandler = () => {
     closeModal()
     setEditorButton(false)
-
   }
 
   const saveEditorHandler = () => {
     const textValue = modalBodyRef.current.querySelector('textarea').value
-    const itemIndex = itemDataForModal.index
+    // const itemIndex = itemDataForModal.index
+    const itemKey = itemDataForModal.key
     if (textCoctroller.isEmpty(textValue)) {
-      dispatch(updateTask({ pageNum, itemIndex, textValue }))
+      dispatch(updateTask({ pageNum, textValue, itemKey }))
+      closeModal()
     } else {
       return
     }
   }
 
-  const deleteItemHandler = (index) => {
-    dispatch(deleteTask({ pageNum, index }))
+  const deleteItemHandler = (itemKey) => {
+    dispatch(deleteTask({ pageNum, itemKey }))
   }
 
   // Закрывайте модальное окно и предотвращайте переход назад при нажатии кнопки "назад"
@@ -68,7 +68,6 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
   useEffect(() => {
     // Добавьте слушатель события popstate при монтировании компонента
     window.addEventListener('popstate', handlePopstate);
-    console.log("▶ ⇛ popstate:");
 
     // Удалите слушатель при размонтировании компонента
     return () => {
@@ -124,7 +123,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
 
               ) : (<>
                 <EditButton editorButtonHandler={editorButtonHandler}></EditButton>
-                <DeleteButton deleteItemHandler={deleteItemHandler} index={itemDataForModal.index}></DeleteButton>
+                  <DeleteButton deleteItemHandler={deleteItemHandler} itemKey={itemDataForModal.key}></DeleteButton>
               </>
 
               )}
