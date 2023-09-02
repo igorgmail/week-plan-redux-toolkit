@@ -8,6 +8,7 @@ import { CheckIcon } from '@chakra-ui/icons'
 import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
 
 // actions
+import { setSwipe } from '../../store/slices/appSlice'
 import { toggleStatus, sortByDone } from "../../store/slices/tasksSlice"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -33,16 +34,14 @@ export default function Task({ itemData }) {
     const newData = { text: itemText, index: itemIndex, status: itemStatus, key: dataIKey };
     setItemDataForModal(newData);
     setIsModalOpen(true);
+    dispatch(setSwipe(false))
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    dispatch(setSwipe(true))
   };
 
-  // useEffect(() => {
-  //   setIsModalOpen(false);
-  //   console.log("MODAL FALSE");
-  // }, [itemData])
 
   const toogleStatusButton = (e) => {
     const dataIKey = e.target.closest('.task-input').dataset.itemKey

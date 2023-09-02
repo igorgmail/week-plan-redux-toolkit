@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const appSlice = createSlice({
   name: 'app',
-  initialState: { page: 2, menu: 'all' },
+  initialState: { page: 2, menu: 'all', swipe: true },
   reducers: {
     setPage: (state, action) => {
       console.log("▶ ⇛ action.payload:", action.payload);
@@ -10,9 +10,12 @@ const appSlice = createSlice({
     },
     setMenu: (state, action) => {
       state.menu = action.payload
+    },
+    setSwipe: (state, action) => {
+      state.swipe = action.payload
     }
   }
 })
 
 export default appSlice.reducer
-export const { setPage, setMenu } = appSlice.actions
+export const { setPage, setMenu, setSwipe } = appSlice.actions

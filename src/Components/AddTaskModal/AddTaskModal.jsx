@@ -8,13 +8,16 @@ import { AddIcon } from '@chakra-ui/icons'
 import VoiceToTextBlock from '../VoiceToTextBlock/VoiceToTextBlock'
 
 import textCoctroller from "../../controller/textCoctroller"
-// actions
-// import actions from "../../store/reducers/actionsGenerate"
-import { addTask } from "../../store/slices/tasksSlice"
+
 import { useDispatch, useSelector } from "react-redux"
+
+// actions
+import { setSwipe } from '../../store/slices/appSlice'
+import { addTask } from "../../store/slices/tasksSlice"
 
 
 const AddTaskModal = React.memo(() => {
+  console.log("---Render Modal Add Task");
 
   const [textVoice, setTextVoice] = useState('')
   const pageNum = useSelector((store) => store.app.page)
@@ -31,9 +34,17 @@ const AddTaskModal = React.memo(() => {
     } else return
   }
 
+  const openModalHandler = () => {
+    onOpen();
+    setTextVoice('')
+    dispatch(setSwipe(false))
+  }
+
   useEffect(() => {
-    console.log("---Render Modal Add Task");
-  })
+    if (!isOpen) {
+      dispatch(setSwipe(true))
+    }
+  }, [isOpen, dispatch])
 
   return (
     <>
@@ -42,7 +53,7 @@ const AddTaskModal = React.memo(() => {
         m={'auto'}
         variant={'outline'}
         colorScheme='green' size='md'
-        onClick={() => { onOpen(); setTextVoice('') }}
+        onClick={openModalHandler}
       >
         <AddIcon />
       </Button>

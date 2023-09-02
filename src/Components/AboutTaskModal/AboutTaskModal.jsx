@@ -2,14 +2,15 @@ import React, { useEffect, useState, useRef, useCallback } from "react"
 
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-// actions
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Flex, Textarea, Badge } from "@chakra-ui/react"
 
 import textCoctroller from "../../controller/textCoctroller"
 
+// actions
 import { updateTask, deleteTask } from '../../store/slices/tasksSlice'
+
 // Buttons
 import SaveButton from "./Buttons/SaveButton"
 import EditButton from "./Buttons/EditButton"

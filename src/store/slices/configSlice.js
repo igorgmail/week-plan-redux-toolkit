@@ -11,14 +11,11 @@ const configSlice = createSlice({
   initialState: { lang: getLangFromBrowser(), user: null, visit: null },
   reducers: {
     setLang: (state, action) => {
-      // console.log("▶ ⇛ action:", action);
       state.lang = action.payload.lang
-      console.log("▶ ⇛ action.payload.lang:", action.payload.lang);
-    }
+    },
   }
-      // state.lang = action.payload.lang
 
 })
 
 export default configSlice.reducer
-export const { setLang } = configSlice.actions
+export const { setLang, setSwipe } = configSlice.actions

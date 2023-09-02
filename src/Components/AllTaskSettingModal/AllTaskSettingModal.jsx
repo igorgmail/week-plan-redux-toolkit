@@ -13,7 +13,7 @@ import CloseButton from "./Button/CloseButton"
 
 // actions
 import { checkAllDone, removeAllFromOneTab } from "../../store/slices/tasksSlice"
-
+import { setSwipe } from '../../store/slices/appSlice'
 
 const AllTaskSettingModal = React.memo(({ visibleList }) => {
   console.log("---Render Modal All Task Setting");
@@ -25,11 +25,16 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
 
   const pageNum = useSelector((store) => store.app.page)
   const menu = useSelector((store) => store.app.menu)
+  // const swipe = useSelector((store) => store.app.swipe)
 
   // AllDone for modal Все выполненны tru || false не все выполненны
   const [statusAll, setStatusAll] = useState()
 
-
+  const openModalHandler = () => {
+    dispatch(setSwipe(false))
+    // setModalClose(false)
+    onOpen()
+  }
 
   const checkAllHandler = (statusCheckAll) => {
     // Отмечаем все
@@ -74,11 +79,14 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
 
   useEffect(() => {
     setShowAlert(false)
-  }, [isOpen])
+    if (!isOpen) {
+      dispatch(setSwipe(true))
+    }
+  }, [isOpen, dispatch])
 
   return (
     <>
-      <SettingsIcon onClick={onOpen} cursor={'pointer'} fontSize={'1.3rem'}></SettingsIcon>
+      <SettingsIcon onClick={openModalHandler} cursor={'pointer'} fontSize={'1.3rem'}></SettingsIcon>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
