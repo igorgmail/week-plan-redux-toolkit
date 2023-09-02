@@ -34,7 +34,7 @@ const theme = extendTheme({
       // Кнопки menu
       task_all: '#457b9d',
       task_todo: '#e07a5f',
-      task_done: '#6c757d',
+      task_done: '#009999',//'#6c757d',
       // Неизвестно
 
       // task_add: '#6c757d',

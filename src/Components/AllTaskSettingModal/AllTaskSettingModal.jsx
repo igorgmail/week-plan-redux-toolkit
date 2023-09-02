@@ -73,6 +73,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
   // Для отображения ('Отменить Все') || ('Выделить Все')
   useEffect(() => {
     const statusAllDoneForModal = !visibleList.some((el) => el.status === 'work')
+    console.log("▶ ⇛ statusAllDoneForModal:", statusAllDoneForModal);
     setStatusAll(statusAllDoneForModal)
 
   }, [visibleList])

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setPage, setMenu } from "../../store/slices/appSlice";
 
 
 function useSwipe() {
@@ -9,8 +8,6 @@ function useSwipe() {
   const [touchStart, setTouchStart] = useState(null)
   const [touchEnd, setTouchEnd] = useState(null)
 
-  const dispatch = useDispatch()
-  const pageNum = useSelector((store) => store.app.page)
   const swipe = useSelector((store) => store.app.swipe)
 
 
@@ -35,7 +32,7 @@ function useSwipe() {
     }
   }
 
-  const onTouchEnd = () => {
+  const onTouchEnd = (swipeLeftHandler, swipeRighttHandler) => {
     if (!touchStart || !touchEnd || !swipe) return
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
@@ -43,20 +40,7 @@ function useSwipe() {
     if (isLeftSwipe || isRightSwipe) {
       isLeftSwipe ? swipeLeftHandler() : swipeRighttHandler()
     }
-    // console.log("SWIPE");
   }
-
-  const swipeLeftHandler = () => {
-    if (pageNum === 4) return
-    dispatch(setPage(pageNum + 1))
-    dispatch(setMenu('all'))
-  }
-  const swipeRighttHandler = () => {
-    if (pageNum === 1) return
-    dispatch(setPage(pageNum - 1))
-    dispatch(setMenu('all'))
-  }
-
 
   return { onTouchStart, onTouchMove, onTouchEnd }
 }

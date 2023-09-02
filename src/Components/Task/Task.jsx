@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 
 import { useColorModeValue } from "@chakra-ui/react";
@@ -12,26 +12,27 @@ import { setSwipe } from '../../store/slices/appSlice'
 import { toggleStatus, sortByDone } from "../../store/slices/tasksSlice"
 import { useDispatch, useSelector } from "react-redux"
 
-export default function Task({ itemData }) {
+const Task = React.memo(({ item }) => {
   console.log("---Render Task");
+
+
   const taskDoneBg = useColorModeValue("light.taskDoneBg", "dark.taskDoneBg");
 
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
-  const item = itemData[0]
-  const index = itemData[1]
+  // const item = itemData 
+  // const index = itemData[1]
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [itemDataForModal, setItemDataForModal] = useState(null)
 
   const openModal = (e) => {
     // Получаем данные для отправки в модальное окно для редактирования
-    const itemIndex = e.target.dataset.itemIndex;
+    // const itemIndex = e.target.dataset.itemIndex;
     const itemStatus = e.target.dataset.itemStatus;
     const itemText = e.target.innerText
     const dataIKey = e.target.closest('.task-input').dataset.itemKey
-    const newData = { text: itemText, index: itemIndex, status: itemStatus, key: dataIKey };
+    const newData = { text: itemText, status: itemStatus, key: dataIKey };
     setItemDataForModal(newData);
     setIsModalOpen(true);
     dispatch(setSwipe(false))
@@ -49,6 +50,9 @@ export default function Task({ itemData }) {
     dispatch(sortByDone(pageNum))
   }
 
+  useEffect(() => {
+    console.log("RENDER TASK USEEFFECT");
+  })
   return (
     <Flex
       className={"task-input"}
@@ -72,7 +76,7 @@ export default function Task({ itemData }) {
           margin={'auto'}
           pl={['0.5rem', '1rem']}
           w={'100%'}
-          data-item-index={index}
+          // data-item-index={index}
           data-item-status={item.status}
           onClick={openModal}
           cursor={'pointer'}
@@ -99,4 +103,6 @@ export default function Task({ itemData }) {
 
     </Flex >
   )
-}
+})
+
+export default Task 
