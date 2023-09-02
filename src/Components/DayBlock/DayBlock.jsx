@@ -8,7 +8,7 @@ import { setPage, setMenu } from "../../store/slices/appSlice";
 
 
 const DayBlock = React.memo(() => {
-  console.log("---Render DayBlock");
+  // console.log("---Render DayBlock");
 
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page) // 1,2,3,4 Сегодня Завтра Неделя
@@ -21,7 +21,6 @@ const DayBlock = React.memo(() => {
   const minSwipeDistance = 50
 
   const onTouchStart = (e) => {
-    console.log("TOUCH STARt");
     setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
     setTouchStart(e.targetTouches[0].clientX)
   }
@@ -42,10 +41,12 @@ const DayBlock = React.memo(() => {
   const swipeLeftHandler = () => {
     if (pageNum === 4) return
     dispatch(setPage(pageNum + 1))
+    dispatch(setMenu('all'))
   }
   const swipeRighttHandler = () => {
     if (pageNum === 1) return
     dispatch(setPage(pageNum - 1))
+    dispatch(setMenu('all'))
   }
 // 
 
@@ -64,7 +65,7 @@ const DayBlock = React.memo(() => {
   return (
 
     <Box w={'100%'} >
-      <Flex onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} 
+      <Flex // onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} 
         w={'100%'} flexDirection={'row'} justifyContent={'center'} gap={['0.8rem', '1.5rem', '2rem']} m={'2rem auto'}>
 
         <Button isActive={pageNum === 1} transform={pageNum === 1 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" onClick={() => chooseDayHandler(1)}>Прошлое</Button>

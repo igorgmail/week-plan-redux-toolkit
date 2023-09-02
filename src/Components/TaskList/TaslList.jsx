@@ -1,18 +1,58 @@
-import React from "react"
+import React, { useState } from "react"
 import { useMemo } from "react"
 import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 
 import Task from "../Task/Task"
 import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage, setMenu } from "../../store/slices/appSlice";
+
 
 export default function TaslList({ activeMenu, visibleList }) {
   console.log("---Render TaskList");
 
+  const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
   const visibleListMemo = useMemo(() => visibleList, [visibleList])
+  // SWIPE
+  //  
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
 
+  // the required distance between touchStart and touchEnd to be detected as a swipe
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe || isRightSwipe) {
+      isLeftSwipe ? swipeLeftHandler() : swipeRighttHandler()
+    }
+    // console.log("SWIPE");
+  }
+
+  const swipeLeftHandler = () => {
+    if (pageNum === 4) return
+    dispatch(setPage(pageNum + 1))
+    dispatch(setMenu('all'))
+  }
+  const swipeRighttHandler = () => {
+    if (pageNum === 1) return
+    dispatch(setPage(pageNum - 1))
+    dispatch(setMenu('all'))
+  }
+//
+// SWIPE
   // Стиль(цвет) для bage 
   const activeBage = ((activeMenu) => {
     if (activeMenu === 'all') return { text: 'Все Задачи', color: 'custom.task_all' }
@@ -22,7 +62,9 @@ export default function TaslList({ activeMenu, visibleList }) {
 
   return (
 
-    <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
+    <Box
+      onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
+      border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
       <Flex alignItems={'center'} justifyContent={'space-between'}>
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
 

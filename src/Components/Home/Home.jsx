@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar"
 import Menu from "../Menu/Menu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
+import SwipeWrap from "../SwipeWrap/SwipeWrap";
 
 import hasTouchScreen from '../../controller/isMobileController'
 
@@ -41,9 +42,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      {/* <SwipeWrap> */}
+
       <DayBlock></DayBlock>
       <Menu />
       <TaslList activeMenu={activeMenu} visibleList={visibleList} />
+      {/* </SwipeWrap> */}
     </>
 
   )
