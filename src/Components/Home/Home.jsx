@@ -31,6 +31,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log('Поменяли stateFromReducer');
+    localStorage.setItem('wp_tasks', JSON.stringify(stateFromReducer))
   }, [stateFromReducer])
 
   useEffect(() => {

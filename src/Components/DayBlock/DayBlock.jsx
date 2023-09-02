@@ -9,11 +9,11 @@ import { setPage, setMenu } from "../../store/slices/appSlice";
 
 const DayBlock = React.memo(() => {
   console.log("---Render DayBlock");
-
   //  
   const [touchStart, setTouchStart] = useState(null)
   const [touchEnd, setTouchEnd] = useState(null)
 
+  const [testSwipe, setTestSwipe] = useState('here')
   // the required distance between touchStart and touchEnd to be detected as a swipe
   const minSwipeDistance = 50
 
@@ -31,7 +31,8 @@ const DayBlock = React.memo(() => {
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
     if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
-    console.log("SWIPE");
+    setTestSwipe("SWIPE")
+    // console.log("SWIPE");
   }
 // 
   const dispatch = useDispatch()
@@ -52,8 +53,8 @@ const DayBlock = React.memo(() => {
   return (
 
     <Box w={'100%'} >
-
-      <Flex onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
+      {testSwipe}
+      <Flex onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} 
         w={'100%'} flexDirection={'row'} justifyContent={'center'} gap={['0.8rem', '1.5rem', '2rem']} m={'2rem auto'}>
 
         <Button transform={pageNum === 1 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" onClick={() => chooseDayHandler(1)}>Прошлое</Button>
