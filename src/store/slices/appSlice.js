@@ -5,6 +5,7 @@ const appSlice = createSlice({
   initialState: { page: 2, menu: 'all' },
   reducers: {
     setPage: (state, action) => {
+      console.log("▶ ⇛ action.payload:", action.payload);
       state.page = action.payload
     },
     setMenu: (state, action) => {

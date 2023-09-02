@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Swipeabl } from 'react-swipeable';
+// import { Swipeabl } from 'react-swipeable';
 import { useDispatch, useSelector } from "react-redux";
 
 import { Flex, Button, Box } from "@chakra-ui/react";
@@ -9,11 +9,14 @@ import { setPage, setMenu } from "../../store/slices/appSlice";
 
 const DayBlock = React.memo(() => {
   console.log("---Render DayBlock");
+
+  const dispatch = useDispatch()
+  const pageNum = useSelector((store) => store.app.page) // 1,2,3,4 Сегодня Завтра Неделя
+
   //  
   const [touchStart, setTouchStart] = useState(null)
   const [touchEnd, setTouchEnd] = useState(null)
 
-  const [testSwipe, setTestSwipe] = useState('here')
   // the required distance between touchStart and touchEnd to be detected as a swipe
   const minSwipeDistance = 50
 
@@ -30,13 +33,21 @@ const DayBlock = React.memo(() => {
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
-    if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
-    setTestSwipe(isLeftSwipe || isRightSwipe)
+    if (isLeftSwipe || isRightSwipe) {
+      isLeftSwipe ? swipeLeftHandler() : swipeRighttHandler()
+    }
     // console.log("SWIPE");
   }
+
+  const swipeLeftHandler = () => {
+    if (pageNum === 4) return
+    dispatch(setPage(pageNum + 1))
+  }
+  const swipeRighttHandler = () => {
+    if (pageNum === 1) return
+    dispatch(setPage(pageNum - 1))
+  }
 // 
-  const dispatch = useDispatch()
-  const pageNum = useSelector((store) => store.app.page) // Сегодня Завтра Неделя
 
   const font = ['0.8rem', '1rem']
 
@@ -53,7 +64,6 @@ const DayBlock = React.memo(() => {
   return (
 
     <Box w={'100%'} >
-      {testSwipe}
       <Flex onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} 
         w={'100%'} flexDirection={'row'} justifyContent={'center'} gap={['0.8rem', '1.5rem', '2rem']} m={'2rem auto'}>
 
