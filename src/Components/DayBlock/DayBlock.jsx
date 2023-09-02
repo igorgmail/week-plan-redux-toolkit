@@ -31,7 +31,7 @@ const DayBlock = React.memo(() => {
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
     if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
-    setTestSwipe("SWIPE")
+    setTestSwipe(isLeftSwipe || isRightSwipe)
     // console.log("SWIPE");
   }
 // 
