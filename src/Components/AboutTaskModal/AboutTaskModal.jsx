@@ -98,8 +98,8 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
           <ModalHeader>
             <Badge backgroundColor={itemDataForModal.status === 'done' ? '#2a9d8f' : '#f4a261'}>{itemDataForModal.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
           </ModalHeader>
-          <ModalCloseButton fontSize={'1.2rem'} />
-          <ModalBody ref={modalBodyRef}>
+          <ModalCloseButton fontSize={'1rem'} />
+          <ModalBody ref={modalBodyRef} fontSize={'1rem'}>
             {editorButton ? (
               <Textarea
                 ref={textareaRef}
