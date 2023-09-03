@@ -103,6 +103,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
             {editorButton ? (
               <Textarea
                 ref={textareaRef}
+                fontSize={'1rem'}
                 size='sm'
                 overflow="auto"
                 defaultValue={itemDataForModal.text}
