@@ -28,13 +28,13 @@ const mockTasks = {
   3: [{
     task: 'Это первая тестовая задача на Завтра',
     status: 'work',
-    dataAdd: Date.now(),
+    dataAdd: Date.now() + 24 * 60 * 60 * 1000,
     key: uuidv4()
   },
   {
     task: 'Это Вторая тестовая задача на Завтра',
     status: 'done',
-    dataAdd: Date.now(),
+    dataAdd: Date.now() + 24 * 60 * 60 * 1000,
     key: uuidv4()
   }],
   4: [{

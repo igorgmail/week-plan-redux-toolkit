@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const appSlice = createSlice({
   name: 'app',
-  initialState: { page: 2, menu: 'all', swipe: true },
+  initialState: { page: 2, menu: 'all', swipe: true, updateTime: null, dateNow: Date.now() },
   reducers: {
     setPage: (state, action) => {
       state.page = action.payload

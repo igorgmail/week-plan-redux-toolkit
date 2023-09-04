@@ -24,7 +24,7 @@ const Navbar = React.memo(() => {
       >
         {title}
       </Heading>
-      {/* <TestButton></TestButton> */}
+      <TestButton></TestButton>
       <HStack>
         <StyleColorMode></StyleColorMode>
         <LangMenu></LangMenu>

@@ -12,7 +12,7 @@ const tasksSlice = createSlice({
       const newTask = {
         task: action.payload.textTask,
         status: 'work',
-        dataAdd: Date.now(),
+        dataAdd: Date.now() + (24 * 60 * 60 * 1000),
         key: uuidv4()
       }
       state[action.payload.pageNum].unshift(newTask)
@@ -99,7 +99,31 @@ const tasksSlice = createSlice({
       if (menu === 'all') {
         state[pageNum] = []
       }
-    }
+    },
+    mvAllFromTodayToHistory: (state, action) => {
+      console.log("IN mvAllFromTodayToHistory");
+      state['2'].forEach((el) => {
+        console.log("▶ ⇛ el:", el);
+        state['1'].push(el)
+      });
+      state['2'] = []
+    },
+    mvAllFromTomorrowToHistory: (state, action) => {
+      state['3'].forEach((el) => {
+        state['2'].push(el)
+      });
+      state['3'] = []
+    },
+    mvAllFromTomorrowToToday: (state, action) => {
+      state['3'].forEach((el) => {
+        state['1'].push(el)
+      });
+      state['3'] = []
+    },
+    // sortAllInHistory: (state, action) => {
+    //   state['1'].sort((a, b) => b.dataAdd - a.dataAdd)
+    // },
+
 
 
   }
@@ -107,4 +131,5 @@ const tasksSlice = createSlice({
 
 export default tasksSlice.reducer
 export const { addTask, toggleStatus, sortByDone,
-  updateTask, deleteTask, checkAllDone, removeAllFromOneTab } = tasksSlice.actions
+  updateTask, deleteTask, checkAllDone, removeAllFromOneTab,
+  mvAllFromTodayToHistory, mvAllFromTomorrowToHistory, mvAllFromTomorrowToToday } = tasksSlice.actions

@@ -5,15 +5,21 @@ import Navbar from "../Navbar/Navbar"
 import Menu from "../Menu/Menu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
-import SwipeWrap from "../SwipeWrap/SwipeWrap";
 
 import hasTouchScreen from '../../controller/isMobileController'
+import { useCheckDate } from '../../hooks/useCheckDate';
+
 
 export default function Home() {
   console.log("---Render Home");
 
+
+  const { checkDateHandler } = useCheckDate()
+
   const pageNum = useSelector((store) => store.app.page)
   const appConfig = useSelector((store) => store.appConfig)
+  const didUpdate = useSelector((store) => store.appConfig.didUpdate)
+  console.log("▶ ⇛ didUpdate:", didUpdate);
 
   // Все задачи обьект в ключах массив обьектов с задачами {1: [Прошлое], 2:[Сегодня], 3:[Завтра], 4: [Неделя] }
   let stateFromReducer = useSelector((store) => store.tasks)
@@ -37,17 +43,25 @@ export default function Home() {
 
   useEffect(() => {
     console.log('Поменяли appConfig');
+    if (didUpdate === null) {
+      checkDateHandler()
+    }
     localStorage.setItem('wp_config', JSON.stringify(appConfig))
   }, [appConfig])
+
+  useEffect(() => {
+    if (Date.now() > didUpdate) {
+      checkDateHandler()
+    }
+  })
+
   return (
     <>
       <Navbar />
-      {/* <SwipeWrap> */}
 
       <DayBlock></DayBlock>
       <Menu />
       <TaslList activeMenu={activeMenu} visibleList={visibleList} />
-      {/* </SwipeWrap> */}
     </>
 
   )

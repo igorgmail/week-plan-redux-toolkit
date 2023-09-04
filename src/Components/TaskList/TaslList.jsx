@@ -8,7 +8,7 @@ import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useSwipe } from '../hooks/swipeHook'
+import { useSwipe } from '../../hooks/swipeHook'
 
 import { setPage, setMenu } from "../../store/slices/appSlice";
 

@@ -6,16 +6,22 @@ const getLangFromBrowser = () => {
   return 'EN';
 }
 
+const didUpdateData = localStorage.getItem('wp_config')
+const didUpdate = JSON.parse(didUpdateData)?.didUpdate
+
 const configSlice = createSlice({
   name: 'config',
-  initialState: { lang: getLangFromBrowser(), user: null, visit: null },
+  initialState: { lang: getLangFromBrowser(), didUpdate: didUpdate || null, user: null, visit: null },
   reducers: {
     setLang: (state, action) => {
       state.lang = action.payload.lang
     },
+    setDidUpdateTime: (state, action) => {
+      state.didUpdate = action.payload
+    }
   }
 
 })
 
 export default configSlice.reducer
-export const { setLang, setSwipe } = configSlice.actions
+export const { setLang, setSwipe, setDidUpdateTime } = configSlice.actions
