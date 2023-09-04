@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { Flex, Button, HStack } from '@chakra-ui/react';
+import { Flex, Button, HStack, Stack, Alert, AlertIcon } from '@chakra-ui/react';
+// import { AlertIcon } from '@chakra-ui/icons'
 // import { checkTodayTaskDate, checkTomorrowTaskDate } from "../controller/checkDate";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -46,9 +47,9 @@ export default function TestButton() {
 
 
   return (
-    <Button
-      // onClick={() => checkDateHandler()}
-    >TestButton</Button>
+    <Button>
+
+      TestButton</Button >
   )
 }
 // 169 355 445 87 84 сегодня

@@ -87,6 +87,15 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
     }
   }, [editorButton]);
 
+  const handleKeyPress = (event) => {
+    if (event.ctrlKey && event.key === 'Enter') {
+      // Обработка события Ctrl + Enter
+      event.preventDefault(); // Отменить стандартное действие (например, отправку формы)
+      // Ваш код здесь
+      saveEditorHandler()
+    }
+  }
+
   useEffect(() => {
     console.log('----TASK Modar Render');
   })
@@ -107,6 +116,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
                 overflow="auto"
                 defaultValue={itemDataForModal.text}
                 autoFocus
+                onKeyUp={handleKeyPress}
               >
               </Textarea>
             ) : (

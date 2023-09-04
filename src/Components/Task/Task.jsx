@@ -50,6 +50,7 @@ const Task = React.memo(({ item }) => {
     dispatch(sortByDone(pageNum))
   }
 
+
   useEffect(() => {
     console.log("RENDER TASK USEEFFECT");
   })

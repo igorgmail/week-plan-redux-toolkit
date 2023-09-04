@@ -40,6 +40,15 @@ const AddTaskModal = React.memo(() => {
     dispatch(setSwipe(false))
   }
 
+  const handleKeyPress = (event) => {
+    if (event.ctrlKey && event.key === 'Enter') {
+      // Обработка события Ctrl + Enter
+      event.preventDefault(); // Отменить стандартное действие (например, отправку формы)
+      // Ваш код здесь
+      addTaskHandler()
+    }
+  }
+
   useEffect(() => {
     if (!isOpen) {
       dispatch(setSwipe(true))
@@ -71,6 +80,7 @@ const AddTaskModal = React.memo(() => {
               overflow="auto"
               autoFocus
               defaultValue={textVoice}
+              onKeyUp={handleKeyPress}
             // focusBorderColor={'red.500'}
             >
             </Textarea>

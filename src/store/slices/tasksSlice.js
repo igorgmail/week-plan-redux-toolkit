@@ -9,10 +9,13 @@ const tasksSlice = createSlice({
 
   reducers: {
     addTask: (state, action) => {
+      //TODO Добавить для Неделя
+      const addTime = action.payload.pageNum === 3 ? (24 * 60 * 60 * 1000) : 0 
+
       const newTask = {
         task: action.payload.textTask,
         status: 'work',
-        dataAdd: Date.now() + (24 * 60 * 60 * 1000),
+        dataAdd: Date.now() + addTime,
         key: uuidv4()
       }
       state[action.payload.pageNum].unshift(newTask)
@@ -31,19 +34,6 @@ const tasksSlice = createSlice({
         return el;
       });
     },
-    // toggleStatus: (state, action) => {
-    //   const { pageNum, dataItem, dataIKey } = action.payload;
-    //   console.log("▶ ⇛ dataIKey:SLICE", dataIKey);
-    //   state[pageNum] = state[pageNum].map((el, ind) => {
-    //     if (ind === Number(dataItem)) {
-    //       return {
-    //         ...el,
-    //         status: el.status === 'done' ? 'work' : 'done'
-    //       };
-    //     }
-    //     return el;
-    //   });
-    // },
 
     sortByDone: (state, action) => {
       state[action.payload].sort((a, b) => {
