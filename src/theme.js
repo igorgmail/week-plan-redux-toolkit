@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import { mode } from '@chakra-ui/theme-tools'
 
 const theme = extendTheme({
 
@@ -8,6 +9,9 @@ const theme = extendTheme({
         fontSize: 'sm',
         backgroundColor: props.colorMode === 'dark' ? '#393939' : 'white',
         lineHeight: 'tall',
+      },
+      '&:active': {
+        backgroundColorlor: mode('#bb01cc', '#bb01cc')(props),
       },
     }),
   },
@@ -19,10 +23,12 @@ const theme = extendTheme({
   colors: {
     light: {
       taskDoneBg: '#cce1dc',
+      task_active: '#adb4b9',
       navBar: '#52796f'
     },
     dark: {
       taskDoneBg: '#78a297',
+      task_active: '#bfc5c9',
       navBar: '#334c46'
     },
 
@@ -36,7 +42,7 @@ const theme = extendTheme({
       task_todo: '#e07a5f',
       task_done: '#009999',//'#6c757d',
       // Неизвестно
-
+      // task_active_light: '#adb4b9',
       // task_add: '#6c757d',
       red: {
         100: "#FFA69E",
