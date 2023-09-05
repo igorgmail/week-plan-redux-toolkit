@@ -30,7 +30,7 @@ const theme = extendTheme({
       task_active: '#bfc5c9',
       navBar: '#334c46',
       fontMenu: 'white',
-      drawerUserBg: 'gray-700'
+      drawerUserBg: '#2D3748'
     },
 
     custom: {
@@ -38,6 +38,9 @@ const theme = extendTheme({
       // Использую
       // фон выполненной задачи
       taskDoneBg: '#cce1dc',
+      // Button form
+      cancelBg: '#e6838b', //'#f4a261',
+      confirmBg: '#2a9d8f',
       // Кнопки menu
       task_all: '#457b9d',
       task_todo: '#e07a5f',
@@ -45,12 +48,10 @@ const theme = extendTheme({
       // Неизвестно
       // task_active_light: '#adb4b9',
       // task_add: '#6c757d',
-      red: {
-        100: "#FFA69E",
-      },
-      blue: {
-        100: "#AED9E0",
-      },
+      red: "#e6838b",
+
+      blue: "#2b6cb0",
+
       green: {
         100: "#B8F2E6",
       },

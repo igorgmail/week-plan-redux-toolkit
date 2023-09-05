@@ -115,7 +115,7 @@ const AddTaskModal = React.memo(() => {
 
                 {/* <VoiceToTextBlock setTextVoice={setTextVoice}></VoiceToTextBlock> */}
 
-                <Button onClick={onClose} color={'white'} backgroundColor={'#f4a261'}>Отменить</Button>
+                <Button onClick={onClose} color={'white'} backgroundColor={'custom.cancelBg'}>Отменить</Button>
               </Flex>
             </ModalFooter>
           </ModalContent>

@@ -5,6 +5,6 @@ import { Button } from "@chakra-ui/react"
 export default function CloseButton({ closeModalHandler }) {
   return (
     <Button
-      isActive={false} onClick={closeModalHandler} color={'white'} backgroundColor={'#e6838b'}>Закрыть</Button>
+      isActive={false} onClick={closeModalHandler} color={'white'} backgroundColor={'custom.cancelBg'}>Закрыть</Button>
   )
 }

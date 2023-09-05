@@ -33,8 +33,9 @@ export default function WhatDayBlock({ pageNum }) {
         userSelect={'none'}
         borderRadius={'8px'}
         borderBottom={'2px solid'} borderColor={'custom.navBar.light'}
-        w={['80%', '80%', '60%']} textAlign={'center'} mb={'1rem'} pb={'1rem'}>
-
+        w={['80%', '80%', '60%']} textAlign={'center'} mb={'1rem'} pb={'1rem'}
+        fontWeight={'500'}
+      >
         {text(pageNum)}
       </Box>
 

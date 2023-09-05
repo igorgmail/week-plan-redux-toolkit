@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import { mvAllFromTodayToHistory, mvAllFromTomorrowToHistory, mvAllFromTomorrowToToday, sortByDone } from '../store/slices/tasksSlice'
@@ -48,7 +47,7 @@ function useCheckDate() {
       second: Math.floor((different % 60000) / 1000) // 1 секунда = 1000 миллисекунд
     };
 
-    console.log("Времени до полуночи: " + ostatok.hour + " часов, " + ostatok.minute + " минут, " + ostatok.second + " секунд.");
+    // console.log("Времени до полуночи: " + ostatok.hour + " часов, " + ostatok.minute + " минут, " + ostatok.second + " секунд.");
     return different
   }
 

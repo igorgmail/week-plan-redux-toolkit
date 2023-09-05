@@ -60,10 +60,10 @@ export default function UserDrawer({ drawerUser }) {
 
           <DrawerFooter
             display={'flex'} justifyContent={'space-around'}>
-            <Button variant='outline' mr={3} onClick={onClose}>
+            <Button variant='outline' mr={3} onClick={onClose} bg={'custom.red'}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
+            <Button bg={'custom.blue'}>Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

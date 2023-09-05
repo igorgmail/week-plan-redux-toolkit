@@ -4,7 +4,7 @@ import { Flex, Heading, HStack } from '@chakra-ui/react';
 import StyleColorMode from '../StyleColorMode/StyleColorMode';
 import { useColorModeValue } from "@chakra-ui/react";
 
-import UserMenu from '../UserMenu/UserMenu';
+// import UserMenu from '../UserMenu/UserMenu';
 import LangMenu from '../LangMenu/LangMenu'
 import TestButton from '../TestButton'
 import UserDrawer from '../UserDrawer/UserDrawer';
@@ -27,10 +27,10 @@ const Navbar = React.memo(() => {
       >
         {title}
       </Heading>
-      <TestButton></TestButton>
+      {/* <TestButton></TestButton> */}
       <HStack>
-        <StyleColorMode></StyleColorMode>
-        <LangMenu></LangMenu>
+        {/* <StyleColorMode></StyleColorMode>
+        <LangMenu></LangMenu> */}
 
         {/* <UserMenu></UserMenu> */}
         <UserDrawer drawerUser={drawerUser}></UserDrawer>

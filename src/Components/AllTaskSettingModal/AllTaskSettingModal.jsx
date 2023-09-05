@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
-import { Button, Flex } from "@chakra-ui/react"
+import { Button, Flex, Tag, HStack } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import { useDisclosure } from '@chakra-ui/react'
 
@@ -25,6 +25,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
 
   const pageNum = useSelector((store) => store.app.page)
   const menu = useSelector((store) => store.app.menu)
+  console.log("▶ ⇛ menu:", menu);
   // const swipe = useSelector((store) => store.app.swipe)
 
   // AllDone for modal Все выполненны tru || false не все выполненны
@@ -49,10 +50,15 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
     }
   }
 
-  let titleForAlert = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать';
+  // const titleForAlert = () => {
+  //   const section = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
+  //   console.log("▶ ⇛ section:", section);
+  //   return section
+  // }
+  const titleForAlert = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
+
   const deleteAllHandler = () => {
     console.log("DELETE ALl Handler");
-    titleForAlert = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
     console.log("▶ ⇛ titleForAlert:", titleForAlert);
     setShowAlert(true)
   }
@@ -68,7 +74,6 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
     setShowAlert(false)
     onClose()
   }
-
 
   // Для отображения ('Отменить Все') || ('Выделить Все')
   useEffect(() => {
@@ -92,8 +97,17 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent m={'auto 1rem'}>
-          <ModalHeader>{titleForAlert}</ModalHeader>
-          <ModalCloseButton />
+          <ModalHeader>
+            <HStack justifyContent={'space-between'}>
+              <p>Действия с разделом</p>
+              <Tag variant={"outline"} colorScheme='teal'>
+                {titleForAlert}
+
+              </Tag>
+            </HStack>
+
+          </ModalHeader>
+          {/* <ModalCloseButton /> */}
 
           <ModalBody m={3}>
             {showAlert ? (<AlertConfirm text={`Удалить все из ${titleForAlert}?`} alertHandler={alertHandler}></AlertConfirm>) :

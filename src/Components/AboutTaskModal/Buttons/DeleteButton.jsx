@@ -6,7 +6,7 @@ import { DeleteIcon } from '@chakra-ui/icons'
 
 export default function DeleteButton({ deleteItemHandler, itemKey }) {
   return (
-    <Button onClick={() => deleteItemHandler(itemKey)} color={'white'} backgroundColor={'#e63946'}>
+    <Button onClick={() => deleteItemHandler(itemKey)} color={'white'} backgroundColor={'custom.cancelBg'}>
       <DeleteIcon></DeleteIcon>
     </Button>
   )

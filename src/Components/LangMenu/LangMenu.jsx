@@ -22,7 +22,7 @@ export default function LangMenu() {
         pl={0}
         _hover={false}
         _active={false}
-        color={'black'}
+        // color={'custom.taskDoneBg'}
         backgroundColor={'transparent'}
         as={Button}
         variant={'solid'}
@@ -30,10 +30,11 @@ export default function LangMenu() {
         {lang}
       </MenuButton>
       <MenuList minWidth={'5rem'}>
-        <MenuItem onClick={() => changeLangHandler('RU')}>RU</MenuItem>
-        <MenuItem onClick={() => changeLangHandler('EN')}>EN</MenuItem>
-        <MenuItem onClick={() => changeLangHandler('FR')}>FR</MenuItem>
-        <MenuItem onClick={() => changeLangHandler('IT')}>IT</MenuItem>
+        <MenuItem onClick={() => changeLangHandler('RU')}>Русский</MenuItem>
+        <MenuItem onClick={() => changeLangHandler('EN')}>English</MenuItem>
+        <MenuItem onClick={() => changeLangHandler('FR')}>Français</MenuItem>
+        <MenuItem onClick={() => changeLangHandler('PT')}>Portugues</MenuItem>
+        <MenuItem onClick={() => changeLangHandler('IT')}>Italiano</MenuItem>
       </MenuList>
     </Menu>
   )
