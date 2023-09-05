@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
-import { Flex, Textarea, Badge } from "@chakra-ui/react"
+import { Flex, Textarea, Badge, Box } from "@chakra-ui/react"
 
 import textCoctroller from "../../controller/textCoctroller"
 
@@ -108,10 +108,15 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
             <Badge backgroundColor={itemDataForModal.status === 'done' ? '#2a9d8f' : '#f4a261'}>{itemDataForModal.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
           </ModalHeader>
           <ModalCloseButton fontSize={'1rem'} />
-          <ModalBody ref={modalBodyRef}>
+          <ModalBody ref={modalBodyRef}
+            p={'1rem'}
+          // border={'2px solid'} borderRadius={'4px'} borderColor={'#A0AEC0'}
+          // m={'auto 1rem'}
+          >
             {editorButton ? (
               <Textarea
                 ref={textareaRef}
+                fontSize={'1rem'}
                 size='sm'
                 overflow="auto"
                 defaultValue={itemDataForModal.text}
@@ -120,7 +125,14 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
               >
               </Textarea>
             ) : (
-              itemDataForModal.text
+                <Box
+                  border={'2px solid'} borderRadius={'4px'} borderColor={'#A0AEC0'}
+                  p={'1rem'}
+                  fontSize={'1rem'}
+                >
+                  {itemDataForModal.text}
+
+                </Box>
             )}
 
           </ModalBody>

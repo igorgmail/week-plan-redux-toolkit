@@ -18,6 +18,7 @@ const tasksSlice = createSlice({
         dataAdd: Date.now() + addTime,
         key: uuidv4()
       }
+      console.log("ADDTASK---length", state[action.payload.pageNum].length);
       state[action.payload.pageNum].unshift(newTask)
     },
 

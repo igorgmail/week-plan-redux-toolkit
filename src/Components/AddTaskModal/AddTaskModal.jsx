@@ -5,6 +5,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseBu
 import { Button, Flex, Textarea } from "@chakra-ui/react"
 import { AddIcon } from '@chakra-ui/icons'
 
+import AlertMessage from '../AlertMessage/AlertMessage'
 import VoiceToTextBlock from '../VoiceToTextBlock/VoiceToTextBlock'
 
 import textCoctroller from "../../controller/textCoctroller"
@@ -19,11 +20,18 @@ import { addTask } from "../../store/slices/tasksSlice"
 const AddTaskModal = React.memo(() => {
   console.log("---Render Modal Add Task");
 
-  const [textVoice, setTextVoice] = useState('')
-  const pageNum = useSelector((store) => store.app.page)
   const dispatch = useDispatch()
+  const pageNum = useSelector((store) => store.app.page)
+  const taskArrayLength = useSelector((store) => store.tasks[pageNum].length) // Сколько задач в этом меню
+  console.log("▶ ⇛ taskArrayLength:", taskArrayLength);
+
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const modalTextareaRef = useRef(null)
+
+  const [textVoice, setTextVoice] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
+  console.log("▶ ⇛ showAlert:", showAlert);
 
   const addTaskHandler = () => {
     const textTask = modalTextareaRef.current.value
@@ -35,9 +43,14 @@ const AddTaskModal = React.memo(() => {
   }
 
   const openModalHandler = () => {
-    onOpen();
-    setTextVoice('')
-    dispatch(setSwipe(false))
+    if (taskArrayLength >= 5) {
+      setShowAlert(true)
+    } else {
+      onOpen();
+      setTextVoice('')
+      dispatch(setSwipe(false))
+    }
+
   }
 
   const handleKeyPress = (event) => {
@@ -66,36 +79,40 @@ const AddTaskModal = React.memo(() => {
       >
         <AddIcon />
       </Button>
-
+      {showAlert ? <AlertMessage setShowAlert={setShowAlert} showAlert={showAlert}></AlertMessage>
+        :
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
-        <ModalOverlay />
-        <ModalContent m={'1rem 1rem auto'} >
-          <ModalHeader>Добавить Задачу</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Textarea
-              ref={modalTextareaRef}
-              size='sm'
-              resize={'vertical'}
-              overflow="auto"
-              autoFocus
-              defaultValue={textVoice}
-              onKeyUp={handleKeyPress}
-            // focusBorderColor={'red.500'}
-            >
-            </Textarea>
-          </ModalBody>
-          <ModalFooter>
-            <Flex w={'100%'} justifyContent={'space-between'}>
-              <Button onClick={() => addTaskHandler()} color={'white'} backgroundColor={'#2a9d8f'}>Добавить</Button>
+          <ModalOverlay />
+          <ModalContent m={'1rem 1rem auto'} >
+            <ModalHeader>Добавить Задачу</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Textarea
+                ref={modalTextareaRef}
+                size='sm'
+                resize={'vertical'}
+                overflow="auto"
+                autoFocus
+                defaultValue={textVoice}
+                onKeyUp={handleKeyPress}
+              // focusBorderColor={'red.500'}
+              >
+              </Textarea>
+              <AlertMessage></AlertMessage>
+            </ModalBody>
+            <ModalFooter>
+              <Flex w={'100%'} justifyContent={'space-between'}>
+                <Button onClick={() => addTaskHandler()} color={'white'} backgroundColor={'#2a9d8f'}>Добавить</Button>
 
-              {/* <VoiceToTextBlock setTextVoice={setTextVoice}></VoiceToTextBlock> */}
+                {/* <VoiceToTextBlock setTextVoice={setTextVoice}></VoiceToTextBlock> */}
 
-              <Button onClick={onClose} color={'white'} backgroundColor={'#f4a261'}>Отменить</Button>
-            </Flex>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+                <Button onClick={onClose} color={'white'} backgroundColor={'#f4a261'}>Отменить</Button>
+              </Flex>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      }
+
     </>
   )
 })

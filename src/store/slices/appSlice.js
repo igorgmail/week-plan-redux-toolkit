@@ -12,9 +12,15 @@ const appSlice = createSlice({
     },
     setSwipe: (state, action) => {
       state.swipe = action.payload
+    },
+    setDayNow: (state) => {
+      state.dateNow = Date.now()
+    },
+    testAction: (state, action) => {
+
     }
   }
 })
 
 export default appSlice.reducer
-export const { setPage, setMenu, setSwipe } = appSlice.actions
+export const { setPage, setMenu, setSwipe, setDayNow, testAction } = appSlice.actions

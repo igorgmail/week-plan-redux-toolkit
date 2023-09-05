@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Navbar from "../Navbar/Navbar"
 import Menu from "../Menu/Menu"
@@ -8,12 +8,12 @@ import TaslList from "../TaskList/TaslList"
 
 import hasTouchScreen from '../../controller/isMobileController'
 import { useCheckDate } from '../../hooks/useCheckDate';
-
+import { setDayNow } from "../../store/slices/appSlice";
 
 export default function Home() {
   console.log("---Render Home");
 
-
+  const dispatch = useDispatch()
   const { checkDateHandler } = useCheckDate()
 
   const pageNum = useSelector((store) => store.app.page)
@@ -45,6 +45,7 @@ export default function Home() {
     console.log('Поменяли appConfig');
     if (didUpdate === null) {
       checkDateHandler()
+      dispatch(setDayNow())
     }
     localStorage.setItem('wp_config', JSON.stringify(appConfig))
   }, [appConfig])
@@ -52,6 +53,7 @@ export default function Home() {
   useEffect(() => {
     if (Date.now() > didUpdate) {
       checkDateHandler()
+      dispatch(setDayNow())
     }
   })
 
