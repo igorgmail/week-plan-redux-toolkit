@@ -10,9 +10,6 @@ const theme = extendTheme({
         backgroundColor: props.colorMode === 'dark' ? '#393939' : 'white',
         lineHeight: 'tall',
       },
-      '&:active': {
-        backgroundColorlor: mode('#bb01cc', '#bb01cc')(props),
-      },
     }),
   },
 
