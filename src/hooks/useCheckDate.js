@@ -36,7 +36,7 @@ function useCheckDate() {
     if (dayNow === dayTask) return 'TO_TODAY'
   }
 
-  function howMAthToMidnight() {
+  function howToMidnight() {
     const dateNow = new Date()
     const midNight = new Date(dateNow).setHours(24, 0, 0, 0)
     const different = midNight - dateNow
@@ -54,7 +54,7 @@ function useCheckDate() {
 
   const checkDateHandler = () => {
     console.log("checkDateHandler");
-    const midNight = howMAthToMidnight()
+    const midNight = howToMidnight()
     dispatch(setDidUpdateTime(midNight + Date.now()))
     // Сегодня
     const dateFromTodayArray = taskData['2'][0]?.dataAdd
@@ -88,7 +88,7 @@ function useCheckDate() {
   }
 
 
-  return { checkDateHandler }
+  return { checkDateHandler, howToMidnight }
 }
 
 export { useCheckDate };

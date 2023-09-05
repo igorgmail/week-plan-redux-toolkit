@@ -10,6 +10,7 @@ const Menu = React.memo(() => {
   console.log("---Render Menu");
 
   const taskActiveBg = useColorModeValue("light.task_active", "dark.task_active");
+  const fontMenu = useColorModeValue("light.fontMenu", "dark.fontMenu");
 
   const dispatch = useDispatch()
   const activeMenu = useSelector((store) => store.app.menu)
@@ -31,7 +32,7 @@ const Menu = React.memo(() => {
               _active={{ backgroundColor: taskActiveBg }}
               _hover={false}
               transform={activeMenu === 'done' && 'translateY(-10px)'}
-              w={'100%'} backgroundColor={'custom.task_done'} color={'white'} fontSize={['.8rem', '1rem']} size='md'
+              w={'100%'} backgroundColor={'custom.task_done'} color={fontMenu} fontSize={['.8rem', '1rem']} size='md'
               onClick={() => menuToogleHandler(1)}>Завершенно</Button>
           </GridItem>
           <GridItem w='100%' h='10' rowSpan={1} >
@@ -40,7 +41,7 @@ const Menu = React.memo(() => {
               _active={{ backgroundColor: taskActiveBg }}
               _hover={false}
               transform={activeMenu === 'all' && 'translateY(-10px)'}
-              w={'100%'} backgroundColor={'custom.task_all'} color={'white'} fontSize={['.8rem', '1rem']}
+              w={'100%'} backgroundColor={'custom.task_all'} color={fontMenu} fontSize={['.8rem', '1rem']}
               onClick={() => menuToogleHandler(2)}>Все задачи</Button>
           </GridItem>
           <GridItem w='100%' h='10'  >
@@ -49,7 +50,7 @@ const Menu = React.memo(() => {
               _active={{ backgroundColor: taskActiveBg }}
               _hover={false}
               transform={activeMenu === 'work' && 'translateY(-10px)'}
-              w={'100%'} backgroundColor={'custom.task_todo'} color={'white'} fontSize={['.8rem', '1rem']} size='md'
+              w={'100%'} backgroundColor={'custom.task_todo'} color={fontMenu} fontSize={['.8rem', '1rem']} size='md'
               onClick={() => menuToogleHandler(3)}>Сделать</Button>
           </GridItem>
 

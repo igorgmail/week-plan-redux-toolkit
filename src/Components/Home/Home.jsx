@@ -6,7 +6,7 @@ import Menu from "../Menu/Menu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
 
-import hasTouchScreen from '../../controller/isMobileController'
+import hasTouchScreen from '../../features/isMobileController'
 import { useCheckDate } from '../../hooks/useCheckDate';
 import { setDayNow } from "../../store/slices/appSlice";
 
@@ -14,16 +14,15 @@ export default function Home() {
   console.log("---Render Home");
 
   const dispatch = useDispatch()
-  const { checkDateHandler } = useCheckDate()
+  const { checkDateHandler, howToMidnight } = useCheckDate()
 
   const pageNum = useSelector((store) => store.app.page)
   const appConfig = useSelector((store) => store.appConfig)
   const didUpdate = useSelector((store) => store.appConfig.didUpdate)
-  console.log("▶ ⇛ didUpdate:", didUpdate);
 
   // Все задачи обьект в ключах массив обьектов с задачами {1: [Прошлое], 2:[Сегодня], 3:[Завтра], 4: [Неделя] }
-  let stateFromReducer = useSelector((store) => store.tasks)
-  let stateList = stateFromReducer[pageNum]
+  let stateTasksFromReducer = useSelector((store) => store.tasks)
+  let stateList = stateTasksFromReducer[pageNum]
 
   const activeMenu = useSelector((store) => store.app.menu) // done all work
 
@@ -37,26 +36,56 @@ export default function Home() {
 
 
   useEffect(() => {
-    console.log('Поменяли stateFromReducer');
-    localStorage.setItem('wp_tasks', JSON.stringify(stateFromReducer))
-  }, [stateFromReducer])
+    console.log('Поменяли stateTasksFromReducer');
+    localStorage.setItem('wp_tasks', JSON.stringify(stateTasksFromReducer))
+  }, [stateTasksFromReducer])
 
   useEffect(() => {
     console.log('Поменяли appConfig');
-    if (didUpdate === null) {
-      checkDateHandler()
-      dispatch(setDayNow())
-    }
     localStorage.setItem('wp_config', JSON.stringify(appConfig))
-  }, [appConfig])
+  }, [appConfig, dispatch])
 
+  // function addTimerForCheckDate() {
+
+  //   const toMidnight = howToMidnight()
+
+  //   console.log("TIMER-->", toMidnight / 600000);
+
+  //   if (toMidnight / 3600000 > 1) {
+  //     const hourTimer = setTimeout(() => {
+  //       clearTimeout(hourTimer)
+
+  //     }, 3600000)
+  //   } else if (toMidnight / 3600000 > 1) {
+  //     const tenMinuteTimer = setTimeout(() => {
+  //       clearTimeout(tenMinuteTimer)
+
+  //     }, 3600000)
+  //   } else {
+
+  //   }
+
+  // }
+
+
+  // Обновление задач
   useEffect(() => {
-    if (Date.now() > didUpdate) {
+    if (!didUpdate || Date.now() > didUpdate) {
       checkDateHandler()
       dispatch(setDayNow())
     }
   })
 
+  useEffect(() => {
+    const toMidnight = howToMidnight()
+    const hourTimer = setTimeout(() => {
+      checkDateHandler()
+      dispatch(setDayNow())
+        clearTimeout(hourTimer)
+      }, toMidnight + 10000) //время до полуночи + 10 секунд
+
+    return () => clearTimeout(hourTimer)
+  })
   return (
     <>
       <Navbar />

@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react"
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
-import { Button, Flex, Textarea } from "@chakra-ui/react"
+import { Button, Flex, Textarea, Tag } from "@chakra-ui/react"
 import { AddIcon } from '@chakra-ui/icons'
 
 import AlertMessage from '../AlertMessage/AlertMessage'
 import VoiceToTextBlock from '../VoiceToTextBlock/VoiceToTextBlock'
 
-import textCoctroller from "../../controller/textCoctroller"
+import textCoctroller from "../../features/textCoctroller"
 
 import { useDispatch, useSelector } from "react-redux"
 
@@ -23,7 +23,6 @@ const AddTaskModal = React.memo(() => {
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
   const taskArrayLength = useSelector((store) => store.tasks[pageNum].length) // Сколько задач в этом меню
-  console.log("▶ ⇛ taskArrayLength:", taskArrayLength);
 
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -31,7 +30,12 @@ const AddTaskModal = React.memo(() => {
 
   const [textVoice, setTextVoice] = useState('')
   const [showAlert, setShowAlert] = useState(false)
-  console.log("▶ ⇛ showAlert:", showAlert);
+
+  const dayForModal = () => {
+    if (pageNum === 2) return 'Сегодня'
+    if (pageNum === 3) return 'Завтра'
+    if (pageNum === 4) return 'Неделя'
+  }
 
   const addTaskHandler = () => {
     const textTask = modalTextareaRef.current.value
@@ -84,7 +88,12 @@ const AddTaskModal = React.memo(() => {
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
           <ModalOverlay />
           <ModalContent m={'1rem 1rem auto'} >
-            <ModalHeader>Добавить Задачу</ModalHeader>
+            <ModalHeader>
+              <Tag variant='outline' colorScheme='teal'>
+                {dayForModal()}
+              </Tag>
+              <p>Добавить Задачу</p>
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Textarea

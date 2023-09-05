@@ -3,7 +3,7 @@ import React, { useMemo } from "react"
 import { Center, Box } from "@chakra-ui/react";
 
 import { useSelector } from "react-redux";
-import frormatedDate from "../../controller/formatedDate";
+import frormatedDate from "../../features/formatedDate";
 
 export default function WhatDayBlock({ pageNum }) {
   console.log("---Render WhatDayBlock");
@@ -36,9 +36,7 @@ export default function WhatDayBlock({ pageNum }) {
         w={['80%', '80%', '60%']} textAlign={'center'} mb={'1rem'} pb={'1rem'}>
 
         {text(pageNum)}
-
       </Box>
-
 
     </Center >
   )

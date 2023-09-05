@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Flex, Textarea, Badge, Box } from "@chakra-ui/react"
 
-import textCoctroller from "../../controller/textCoctroller"
+import textCoctroller from "../../features/textCoctroller"
 
 // actions
 import { updateTask, deleteTask } from '../../store/slices/tasksSlice'

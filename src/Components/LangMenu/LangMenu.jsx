@@ -19,9 +19,10 @@ export default function LangMenu() {
   return (
     <Menu>
       <MenuButton
-        _hover={'none'}
-        _active={'none'}
-        color={'white'}
+        pl={0}
+        _hover={false}
+        _active={false}
+        color={'black'}
         backgroundColor={'transparent'}
         as={Button}
         variant={'solid'}

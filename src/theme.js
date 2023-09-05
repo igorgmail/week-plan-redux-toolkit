@@ -21,12 +21,16 @@ const theme = extendTheme({
     light: {
       taskDoneBg: '#cce1dc',
       task_active: '#adb4b9',
-      navBar: '#52796f'
+      navBar: '#52796f',
+      fontMenu: 'black',
+      drawerUserBg: '#eceeef'
     },
     dark: {
       taskDoneBg: '#78a297',
       task_active: '#bfc5c9',
-      navBar: '#334c46'
+      navBar: '#334c46',
+      fontMenu: 'white',
+      drawerUserBg: 'gray-700'
     },
 
     custom: {

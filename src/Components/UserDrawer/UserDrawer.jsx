@@ -2,13 +2,20 @@ import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import { useDisclosure } from '@chakra-ui/react'
-import { Container, Button, Input, Avatar } from '@chakra-ui/react'
+import { Container, Button, Input, Avatar, HStack, Box } from '@chakra-ui/react'
 import { Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from '@chakra-ui/react'
 
+import { useColorModeValue } from "@chakra-ui/react";
+
+import StyleColorMode from '../StyleColorMode/StyleColorMode'
+import LangMenu from '../LangMenu/LangMenu'
 
 export default function UserDrawer({ drawerUser }) {
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+
+  const drawerUserBg = useColorModeValue("light.drawerUserBg", "dark.drawerUserBg");
 
   return (
     <>
@@ -27,12 +34,28 @@ export default function UserDrawer({ drawerUser }) {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg={drawerUserBg}>
           <DrawerCloseButton />
           <DrawerHeader>Настройки</DrawerHeader>
 
           <DrawerBody>
-            <Input placeholder='Type here...' />
+
+            <HStack justifyContent={'stretch'}>
+              <Box w={'50%'}>Тема</Box>
+              <StyleColorMode></StyleColorMode>
+            </HStack>
+
+            <HStack>
+              <Box w={'50%'}>Язык</Box>
+              <LangMenu></LangMenu>
+            </HStack>
+
+            <HStack>
+              <Box w={'50%'}>Конец Недели :</Box>
+              <Box>Воскресенье</Box>
+
+            </HStack>
+
           </DrawerBody>
 
           <DrawerFooter

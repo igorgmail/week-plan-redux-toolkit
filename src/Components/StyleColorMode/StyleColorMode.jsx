@@ -10,7 +10,7 @@ export default function StyleColorMode() {
 
   return (
 
-    <Button onClick={toggleColorMode} variant={'ghost'} size='md' _hover={'none'}>
+    <Button onClick={toggleColorMode} variant={'ghost'} size='md' _hover={false} pl={0}>
       {colorMode === 'light' ? <MoonIcon color={'#e2e8f0'} hover={'none'} /> : <SunIcon hover={'none'} />}
     </Button>
   )
