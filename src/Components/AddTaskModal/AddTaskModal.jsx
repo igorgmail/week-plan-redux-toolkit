@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setSwipe } from '../../store/slices/appSlice'
 import { addTask } from "../../store/slices/tasksSlice"
 
+import hasTouchScreen from '../../features/isMobileController'
 
 const AddTaskModal = React.memo(() => {
   console.log("---Render Modal Add Task");
@@ -58,6 +59,7 @@ const AddTaskModal = React.memo(() => {
   }
 
   const handleKeyPress = (event) => {
+    if (hasTouchScreen()) return
     if (event.ctrlKey && event.key === 'Enter') {
       // Обработка события Ctrl + Enter
       event.preventDefault(); // Отменить стандартное действие (например, отправку формы)
@@ -103,7 +105,7 @@ const AddTaskModal = React.memo(() => {
                 overflow="auto"
                 autoFocus
                 defaultValue={textVoice}
-                onKeyUp={handleKeyPress}
+                onKeyUp={!hasTouchScreen() && handleKeyPress}
               // focusBorderColor={'red.500'}
               >
               </Textarea>

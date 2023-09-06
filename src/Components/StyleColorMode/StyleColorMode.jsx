@@ -25,11 +25,11 @@ export default function StyleColorMode() {
     <HStack>
 
       <Button onClick={() => modeHandler('dark')} variant={'ghost'} size='md' _hover={false} pl={0}>
-        <MoonIcon _hover={false} /> 
+        <MoonIcon _hover={false} fontSize={colorMode === 'dark' && '1.5rem'} /> 
     </Button>
       <Switch size='md' onChange={switchHandler} isChecked={colorMode === 'light'} />
       <Button onClick={() => modeHandler('light')} variant={'ghost'} size='md' _hover={false} pl={0}>
-        <SunIcon _hover={false} />
+        <SunIcon _hover={false} fontSize={colorMode === 'light' && '1.5rem'} />
       </Button>
     </HStack>
   )

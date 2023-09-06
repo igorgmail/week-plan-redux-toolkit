@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSwipe } from '../../hooks/swipeHook'
 
 import { setPage, setMenu } from "../../store/slices/appSlice";
+import hasTouchScreen from '../../features/isMobileController'
 
 
 export default function SwipeWrap({ children }) {
@@ -29,7 +30,7 @@ export default function SwipeWrap({ children }) {
     onTouchEnd(swipeLeftHandler, swipeRighttHandler)
   }
 
-  return (
+  return (hasTouchScreen &&
     <Container
       onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={swipeHandler}
       h={'100vh'}

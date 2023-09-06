@@ -69,7 +69,6 @@ export default function Home() {
     <>
       <Navbar />
       <SwipeWrap>
-
       <DayBlock></DayBlock>
         <TasksMenu />
       <TaslList activeMenu={activeMenu} visibleList={visibleList} />
