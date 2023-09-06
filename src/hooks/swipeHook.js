@@ -25,7 +25,7 @@ function useSwipe() {
   }
 
   const onTouchMove = (e) => {
-    console.log("▶ ⇛ e:", e.targetTouches[0].clientX);
+    // console.log("▶ ⇛ e:", e.targetTouches[0].clientX);
     if (swipe) {
       setTouchEnd(e.targetTouches[0].clientX)
     } else {

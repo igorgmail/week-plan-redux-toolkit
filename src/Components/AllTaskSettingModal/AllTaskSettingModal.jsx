@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useMemo } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
 
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@chakra-ui/react"
 import { Button, Flex, Tag, HStack } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import { useDisclosure } from '@chakra-ui/react'
@@ -78,9 +78,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
   // Для отображения ('Отменить Все') || ('Выделить Все')
   useEffect(() => {
     const statusAllDoneForModal = !visibleList.some((el) => el.status === 'work')
-    console.log("▶ ⇛ statusAllDoneForModal:", statusAllDoneForModal);
     setStatusAll(statusAllDoneForModal)
-
   }, [visibleList])
 
   useEffect(() => {

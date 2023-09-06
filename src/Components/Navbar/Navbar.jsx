@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from "react-redux"
 import { Flex, Heading, HStack } from '@chakra-ui/react';
-import StyleColorMode from '../StyleColorMode/StyleColorMode';
 import { useColorModeValue } from "@chakra-ui/react";
 
-// import UserMenu from '../UserMenu/UserMenu';
-import LangMenu from '../LangMenu/LangMenu'
-import TestButton from '../TestButton'
 import UserDrawer from '../UserDrawer/UserDrawer';
 
 const Navbar = React.memo(() => {
@@ -27,12 +23,7 @@ const Navbar = React.memo(() => {
       >
         {title}
       </Heading>
-      {/* <TestButton></TestButton> */}
       <HStack>
-        {/* <StyleColorMode></StyleColorMode>
-        <LangMenu></LangMenu> */}
-
-        {/* <UserMenu></UserMenu> */}
         <UserDrawer drawerUser={drawerUser}></UserDrawer>
       </HStack>
 

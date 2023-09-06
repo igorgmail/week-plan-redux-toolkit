@@ -2,9 +2,10 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux";
 
 import Navbar from "../Navbar/Navbar"
-import Menu from "../Menu/Menu"
+import TasksMenu from "../TasksMenu/TasksMenu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
+import SwipeWrap from '../SwipeWrap/SwipeWrap'
 
 import hasTouchScreen from '../../features/isMobileController'
 import { useCheckDate } from '../../hooks/useCheckDate';
@@ -45,28 +46,6 @@ export default function Home() {
     localStorage.setItem('wp_config', JSON.stringify(appConfig))
   }, [appConfig, dispatch])
 
-  // function addTimerForCheckDate() {
-
-  //   const toMidnight = howToMidnight()
-
-  //   console.log("TIMER-->", toMidnight / 600000);
-
-  //   if (toMidnight / 3600000 > 1) {
-  //     const hourTimer = setTimeout(() => {
-  //       clearTimeout(hourTimer)
-
-  //     }, 3600000)
-  //   } else if (toMidnight / 3600000 > 1) {
-  //     const tenMinuteTimer = setTimeout(() => {
-  //       clearTimeout(tenMinuteTimer)
-
-  //     }, 3600000)
-  //   } else {
-
-  //   }
-
-  // }
-
 
   // Обновление задач
   useEffect(() => {
@@ -89,10 +68,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <SwipeWrap>
 
       <DayBlock></DayBlock>
-      <Menu />
+        <TasksMenu />
       <TaslList activeMenu={activeMenu} visibleList={visibleList} />
+      </SwipeWrap>
     </>
 
   )

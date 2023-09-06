@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { useState } from "react"
 
 import { useColorModeValue } from "@chakra-ui/react";
@@ -20,8 +20,6 @@ const Task = React.memo(({ item }) => {
 
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
-  // const item = itemData 
-  // const index = itemData[1]
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [itemDataForModal, setItemDataForModal] = useState(null)
@@ -50,10 +48,6 @@ const Task = React.memo(({ item }) => {
     dispatch(sortByDone(pageNum))
   }
 
-
-  useEffect(() => {
-    console.log("RENDER TASK USEEFFECT");
-  })
   return (
     <Flex
       className={"task-input"}
@@ -66,8 +60,7 @@ const Task = React.memo(({ item }) => {
           w={'100%'}
           m={'auto'}
           border='2px' borderColor='gray.400'
-          borderRadius={'8px'}
-        // backgroundColor={taskDoneBg}
+        borderRadius={'8px'}
         backgroundColor={item.status === 'done' ? taskDoneBg : 'none'}
         >
 
@@ -77,7 +70,6 @@ const Task = React.memo(({ item }) => {
           margin={'auto'}
           pl={['0.5rem', '1rem']}
           w={'100%'}
-          // data-item-index={index}
           data-item-status={item.status}
           onClick={openModal}
           cursor={'pointer'}
@@ -96,7 +88,6 @@ const Task = React.memo(({ item }) => {
           <CheckIcon color={item.status === 'done' ? 'green.500' : ''} />
         </Button>
       </InputGroup>
-
 
       <Flex w={['100%', '100%', 'auto']} gap={'8px'}>
 

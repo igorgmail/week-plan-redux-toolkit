@@ -6,7 +6,7 @@ import { Container, Button, Grid, GridItem } from '@chakra-ui/react'
 
 import { setMenu } from "../../store/slices/appSlice"
 
-const Menu = React.memo(() => {
+const TasksMenu = React.memo(() => {
   console.log("---Render Menu");
 
   const taskActiveBg = useColorModeValue("light.task_active", "dark.task_active");
@@ -61,4 +61,4 @@ const Menu = React.memo(() => {
   )
 })
 
-export default Menu
+export default TasksMenu
