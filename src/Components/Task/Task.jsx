@@ -2,7 +2,7 @@ import React from "react"
 import { useState } from "react"
 
 import { useColorModeValue } from "@chakra-ui/react";
-import { Button, Flex, InputGroup, Text } from "@chakra-ui/react"
+import { Button, Flex, InputGroup, Text, Box } from "@chakra-ui/react"
 import { CheckIcon } from '@chakra-ui/icons'
 
 import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
@@ -64,6 +64,9 @@ const Task = React.memo(({ item }) => {
         backgroundColor={item.status === 'done' ? taskDoneBg : 'none'}
         >
 
+        <Box onClick={openModal} cursor={'pointer'} w={'100%'} display={'flex'} >
+
+
         <Text
           overflow={'hidden'} whiteSpace={'nowrap'} textOverflow={'ellipsis'}
           userSelect={'none'}
@@ -71,13 +74,12 @@ const Task = React.memo(({ item }) => {
           pl={['0.5rem', '1rem']}
           w={'100%'}
           data-item-status={item.status}
-          onClick={openModal}
-          cursor={'pointer'}
+
           fontSize={['.8rem', '1rem']}
           fontWeight={'500'}
           textDecoration={item.status === 'done' ? 'line-through' : 'none'}
         >{item.task}</Text>
-
+        </Box>
         {isModalOpen &&
           <AboutTaskModal itemDataForModal={itemDataForModal} isModalOpen={isModalOpen} closeModal={closeModal} />}
 
@@ -89,9 +91,9 @@ const Task = React.memo(({ item }) => {
         </Button>
       </InputGroup>
 
-      <Flex w={['100%', '100%', 'auto']} gap={'8px'}>
+      {/* <Flex w={['100%', '100%', 'auto']} gap={'8px'}>
 
-      </Flex>
+      </Flex> */}
 
     </Flex >
   )

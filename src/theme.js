@@ -9,6 +9,7 @@ const theme = extendTheme({
         fontSize: 'sm',
         backgroundColor: props.colorMode === 'dark' ? '#393939' : 'white',
         lineHeight: 'tall',
+        height: '100%'
       },
     }),
   },
