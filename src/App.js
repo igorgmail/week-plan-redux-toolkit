@@ -30,13 +30,16 @@ function App() {
   }, [])
 
 
-  // useEffect(() => {
-  //   if (didUpdate) {
+  useEffect(() => {
+    const abortController = new AbortController();
 
-  //     checkDateHandler()
-  //     console.log("NULL");
-  //   }
-  // }, [])
+    async function getLogin() {
+      const logenFetch = fetch('localhost:3002/user/login')
+    }
+
+
+    return () => abortController.abort()
+  }, [])
 
   return (
     <Routes>

@@ -24,8 +24,12 @@ export default function TaslList({ activeMenu, visibleList }) {
 
   return (
 
+
     <Box
-      border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
+      // className="taskListBlock"
+      backgroundColor={'taskListBg'}
+      border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}
+    >
       <Flex alignItems={'center'} justifyContent={'space-between'}>
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
 

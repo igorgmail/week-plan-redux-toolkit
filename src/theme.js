@@ -1,23 +1,48 @@
 import { extendTheme } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools'
+// console.log("▶ ⇛ mode:", mode());
 
 const theme = extendTheme({
 
+  semanticTokens: {
+    colors: {
+      taskListBg: {
+        _light: '#FFFFFF',
+        _dark: '#505050',
+      },
+
+    },
+  },
+
   styles: {
+
     global: (props) => ({
-      'html, body': {
+      html: {
         fontSize: 'sm',
-        backgroundColor: props.colorMode === 'dark' ? '#393939' : 'white',
         lineHeight: 'tall',
         height: '100%'
       },
+      body: {
+        backgroundColor: props.colorMode === 'dark' ? '#393939' : '#F5F5F5',
+      },
+      // Если назначить класс элементу
+      '.taskListBlock': {
+        // backgroundColor: props.colorMode === 'dark' ? '#393939' : '#FFFFFF',
+        backgroundColor: props.colorMode === 'dark' ? '#505050' : '#FFFFFF',
+      }
     }),
+
+  },
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
   },
 
   fonts: {
     body: 'Roboto, sans-serif',
     heading: 'Roboto, sans-serif',
   },
+
   colors: {
     light: {
       taskDoneBg: '#cce1dc',
@@ -27,15 +52,17 @@ const theme = extendTheme({
       drawerUserBg: '#eceeef'
     },
     dark: {
+
       taskDoneBg: '#78a297',
       task_active: '#bfc5c9',
       navBar: '#334c46',
       fontMenu: 'white',
-      drawerUserBg: '#2D3748'
+      drawerUserBg: '#2D3748',
+
     },
 
-    custom: {
 
+    custom: {
       // Использую
       // фон выполненной задачи
       taskDoneBg: '#cce1dc',
@@ -47,50 +74,12 @@ const theme = extendTheme({
       task_todo: '#e07a5f',
       task_done: '#009999',//'#6c757d',
       // Неизвестно
-      // task_active_light: '#adb4b9',
-      // task_add: '#6c757d',
       red: "#e6838b",
 
       blue: "#2b6cb0",
-
-      green: {
-        100: "#B8F2E6",
-      },
-      yellow: {
-        // 100: "#FAF3DD",
-        100: "#c69f2f",
-      },
-      grey: {
-        100: "#5E6472",
-      },
 
     },
   }
 });
 
-// В компоненте задаем
-// backgroundColor={'custom.red.100'}
-
-// // 1. import `extendTheme` function
-// import { extendTheme } from '@chakra-ui/react'
-
-// // 2. Add your color mode config
-// const config = {
-//   initialColorMode: 'light',
-//   useSystemColorMode: false,
-// }
-
-// // 3. extend the theme
-// const theme = extendTheme({ config })
-
-// colors: {
-//   custom: {
-//     red: {
-//       100: "#b008a0",
-//       // ...
-//       900: "#1a202c",
-//     }
-
-//   },
-// }
 export default theme

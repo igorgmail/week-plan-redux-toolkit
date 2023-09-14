@@ -51,8 +51,8 @@ export default function UserDrawer({ drawerUser }) {
             </HStack>
 
             <HStack>
-              <Box w={'50%'}>Конец Недели :</Box>
-              <Box>Воскресенье</Box>
+              {/* <Box w={'50%'}>Конец Недели :</Box>
+              <Box>Воскресенье</Box> */}
 
             </HStack>
 
