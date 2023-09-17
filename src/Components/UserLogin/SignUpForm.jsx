@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -12,19 +12,20 @@ export default function SignUpForm({ isSelected }) {
   const nameRef = React.useRef(null);
   const handleClick = () => setShow(!show);
 
-  React.useEffect(() => {
-    if (isSelected) {
+  useEffect(() => {
       setTimeout(() => {
         nameRef.current.focus();
       }, 300);
-    }
   }, []);
+
+
   return (
     <Stack direction="column" spacing="20px" mb="2rem">
       <FormControl w="80%" m="auto">
         <FormLabel>Ваше Имя</FormLabel>
         <InputGroup size="md">
           <Input
+            name=''
             ref={nameRef}
             pr="4.5rem"
             type="text"

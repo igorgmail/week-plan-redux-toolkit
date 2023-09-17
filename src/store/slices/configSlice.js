@@ -22,6 +22,43 @@ const authStatus = createAsyncThunk(
       const result = await response.json()
       return result
     }
+    console.log("▶ ⇛ response:", response);
+    return false
+  }
+)
+
+const userLogOut = createAsyncThunk(
+  'config/userLogOut',
+  async () => {
+    const response = await fetch('http://localhost:3100/api/user/logout', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // signal: abortController.signal,
+    })
+    if (response.status === 200) {
+      return true
+    }
+    return false
+  }
+)
+
+const userSignIn = createAsyncThunk(
+  'config/userSignIn',
+  async () => {
+    const response = await fetch('http://localhost:3100/api/user/logout', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // signal: abortController.signal,
+    })
+    if (response.status === 200) {
+      return true
+    }
     return false
   }
 )
@@ -65,7 +102,18 @@ const configSlice = createSlice({
       state.userName = appUserName || ''
     })
     builder.addCase(authStatus.fulfilled, (state, action) => {
-      state.userName = action.payload || appUserName
+      state.userName = action.payload.name || appUserName
+    })
+    // Logout
+    builder.addCase(userLogOut.rejected, (state, action) => {
+      state.userName = appUserName || ''
+    })
+    builder.addCase(userLogOut.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.userName = ''
+      } else {
+        state.userName = appUserName || ''
+      };
     })
   }
 
@@ -73,6 +121,6 @@ const configSlice = createSlice({
 
 export default configSlice.reducer
 export const { setLang, setSwipe, setDidUpdateTime, setName, setFirstVisit } = configSlice.actions
-export { authStatus }
+export { authStatus, userLogOut }
 
 export const getAppLang = (state) => state.appConfig.lang

@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormControl, FormLabel, FormHelperText } from '@chakra-ui/react';
 import { Input, Tabs, TabList, Tab, TabPanels, TabPanel, } from '@chakra-ui/react';
 
 import SignInForm from './SignInForm'
 import SignUpForm from './SignUpForm'
-
+import RequestSpinner from './RequestSpinner';
 
 export default function LoginPage() {
-  return (
+  console.log("---RENDER LoginPage:");
+
+  const [showSpinner, setShowSpinner] = useState(false)
+
+  return (showSpinner ? (<RequestSpinner />) :
 
     <>
-      {/* <FormControl>
-        <FormLabel>Email address</FormLabel>
-        <Input type='email' />
-        <FormHelperText>We'll never share your email.</FormHelperText>
-      </FormControl> */}
       <Tabs
-        isFitted variant='enclosed'
-        w={'50%'} m={'auto'}
+        isFitted isLazy
+        variant='enclosed'
+        w={['80%', '50%']} m={'auto'}
         bg={'taskListBg'}
         fontWeight={'500'}
         // color={'tabsFont'}
@@ -31,16 +31,13 @@ export default function LoginPage() {
 
         <TabPanels>
           <TabPanel>
-            <SignInForm />
+            <SignInForm setShowSpinner={setShowSpinner} />
           </TabPanel>
           <TabPanel>
-            <SignUpForm />
+            <SignUpForm setShowSpinner={setShowSpinner} />
           </TabPanel>
         </TabPanels>
       </Tabs>
     </>
-
-
-
   );
 };

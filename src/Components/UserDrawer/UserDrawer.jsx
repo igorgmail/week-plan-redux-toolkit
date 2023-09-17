@@ -1,26 +1,34 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import React, { useRef } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { useDisclosure } from '@chakra-ui/react'
 import { Button, Avatar, Flex, HStack, Stack, Box, Divider } from '@chakra-ui/react'
 import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from '@chakra-ui/react'
 
 import StyleColorMode from '../StyleColorMode/StyleColorMode'
 import LangMenu from '../LangMenu/LangMenu'
-
 import { LoginIcon, LogOutIcon } from "../Icons/Icons"
+
+import { userLogOut } from "../../store/slices/configSlice"
+
 export default function UserDrawer({ drawerUser }) {
 
+  const dispatch = useDispatch()
+
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef(null)
+  const navigate = useNavigate()
+  const btnRef = useRef(null)
 
   const userName = useSelector((store) => store.appConfig.userName)
+  console.log("▶ ⇛ userName:AVATAR", userName);
 
-  const logOInHandler = () => {
-
+  const logInHandler = () => {
+    onClose()
+    navigate('/login')
   }
-
   const logOutHandler = () => {
-
+    dispatch(userLogOut())
+    onClose()
   }
   const CustomDivider = () => (
     <Divider
@@ -53,7 +61,7 @@ export default function UserDrawer({ drawerUser }) {
 
               <Box >
                 <Box
-                  onClick={userName ? logOutHandler : logOInHandler}
+                  onClick={userName ? logOutHandler : logInHandler}
                   display={'flex'} cursor={'pointer'} tabIndex={2}>
                   <Box fontSize={'1rem'} mr={'1rem'}>
                     {userName ? 'Выйти' : 'Войти'}
