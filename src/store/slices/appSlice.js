@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import isHasToushScreen from '../../features/isMobileController.js'
+
 const appSlice = createSlice({
   name: 'app',
+
   initialState: { page: 2, menu: 'all', swipe: true, updateTime: null, dateNow: Date.now(), isMobile: isHasToushScreen() },
+
   reducers: {
     setPage: (state, action) => {
       state.page = action.payload

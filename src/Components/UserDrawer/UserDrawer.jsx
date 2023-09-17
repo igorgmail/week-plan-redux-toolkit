@@ -1,32 +1,44 @@
 import React from "react"
-import { useSelector, useDispatch } from "react-redux"
-
+import { useSelector } from "react-redux"
 import { useDisclosure } from '@chakra-ui/react'
-import { Container, Button, Input, Avatar, HStack, Box } from '@chakra-ui/react'
-import { Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from '@chakra-ui/react'
-
-import { useColorModeValue } from "@chakra-ui/react";
+import { Button, Avatar, Flex, HStack, Stack, Box, Divider } from '@chakra-ui/react'
+import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from '@chakra-ui/react'
 
 import StyleColorMode from '../StyleColorMode/StyleColorMode'
 import LangMenu from '../LangMenu/LangMenu'
 
+import { LoginIcon, LogOutIcon } from "../Icons/Icons"
 export default function UserDrawer({ drawerUser }) {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const btnRef = React.useRef(null)
 
-  const drawerUserBg = useColorModeValue("light.drawerUserBg", "dark.drawerUserBg");
+  const userName = useSelector((store) => store.appConfig.userName)
 
+  const logOInHandler = () => {
+
+  }
+
+  const logOutHandler = () => {
+
+  }
+  const CustomDivider = () => (
+    <Divider
+      opacity={'0.8'}
+      borderColor={'#cdcdcd'}
+      width={'auto'}
+      mb={'1rem'}
+    />
+  )
   return (
     <>
       <Avatar
-        size={['xs', 'sm']} cursor={'pointer'}
+        onClick={onOpen}
+        name={userName}
         ref={btnRef}
-        colorScheme='teal'
-        onClick={onOpen}></Avatar>
-      {/* <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
-        Open
-      </Button> */}
+        size={['xs', 'sm']} cursor={'pointer'} colorScheme='teal'
+      />
+
       <Drawer
         isOpen={isOpen}
         placement='right'
@@ -34,37 +46,58 @@ export default function UserDrawer({ drawerUser }) {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent bg={drawerUserBg}>
-          <DrawerCloseButton />
-          <DrawerHeader>Настройки</DrawerHeader>
+        <DrawerContent bg={'drawerUserBg'}>
+
+          <DrawerHeader>
+            <Flex justifyContent={'flex-end'}>
+
+              <Box >
+                <Box
+                  onClick={userName ? logOutHandler : logOInHandler}
+                  display={'flex'} cursor={'pointer'} tabIndex={2}>
+                  <Box fontSize={'1rem'} mr={'1rem'}>
+                    {userName ? 'Выйти' : 'Войти'}
+                  </Box>
+                  <Stack display={'flex'} justifyContent={'center'}>
+                    {userName ?
+                      <LogOutIcon w={'16px'} height={'16px'}></LogOutIcon>
+                      :
+                      <LoginIcon w={'16px'} height={'16px'}></LoginIcon>
+                    }
+                  </Stack>
+                </Box>
+              </Box>
+
+            </Flex>
+          </DrawerHeader>
 
           <DrawerBody>
+            <Flex flexDir={'column'}>
 
-            <HStack justifyContent={'stretch'}>
-              <Box w={'50%'}>Тема</Box>
+              <CustomDivider />
+
+              <HStack>
+                <Box w={'50%'} flexShrink={0}>Тема</Box>
               <StyleColorMode></StyleColorMode>
             </HStack>
 
             <HStack>
-              <Box w={'50%'}>Язык</Box>
+                <Box w={'50%'} flexShrink={0}>Язык</Box>
               <LangMenu></LangMenu>
             </HStack>
 
-            <HStack>
-              {/* <Box w={'50%'}>Конец Недели :</Box>
-              <Box>Воскресенье</Box> */}
+              <CustomDivider />
 
-            </HStack>
-
+            </Flex>
           </DrawerBody>
 
           <DrawerFooter
             display={'flex'} justifyContent={'space-around'}>
-            <Button variant='outline' mr={3} onClick={onClose} bg={'custom.red'}>
-              Cancel
+            <Button variant='outline' mr={3} onClick={onClose} bg={'custom.red'} tabIndex={1}>
+              Закрыть
             </Button>
-            <Button bg={'custom.blue'}>Save</Button>
           </DrawerFooter>
+
         </DrawerContent>
       </Drawer>
     </>

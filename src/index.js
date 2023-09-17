@@ -11,7 +11,6 @@ import App from './App';
 import theme from './theme';
 
 const customTheme = extendTheme(theme); // Создаем расширенную тему
-console.log("▶ ⇛ customTheme:", customTheme);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function RootComponent() {

@@ -1,0 +1,6 @@
+.divider {
+  /* color: brown; */
+  border: 2px solid red;
+  border-color: brown;
+  height: 4px;
+}

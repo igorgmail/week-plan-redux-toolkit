@@ -18,7 +18,7 @@ import { addTask } from "../../store/slices/tasksSlice"
 
 import hasTouchScreen from '../../features/isMobileController'
 
-const AddTaskModal = React.memo(() => {
+const AddTaskModal = React.memo(React.forwardRef((props, addModalRef) => {
   console.log("---Render Modal Add Task");
 
   const dispatch = useDispatch()
@@ -31,6 +31,7 @@ const AddTaskModal = React.memo(() => {
 
   const [textVoice, setTextVoice] = useState('')
   const [showAlert, setShowAlert] = useState(false)
+
 
   const dayForModal = () => {
     if (pageNum === 2) return 'Сегодня'
@@ -55,8 +56,8 @@ const AddTaskModal = React.memo(() => {
       setTextVoice('')
       dispatch(setSwipe(false))
     }
-
   }
+
 
   const handleKeyPress = (event) => {
     if (hasTouchScreen()) return
@@ -82,12 +83,13 @@ const AddTaskModal = React.memo(() => {
         variant={'outline'}
         colorScheme='green' size='md'
         onClick={openModalHandler}
+        ref={addModalRef}
       >
         <AddIcon />
       </Button>
       {showAlert ? <AlertMessage setShowAlert={setShowAlert} showAlert={showAlert}></AlertMessage>
         :
-      <Modal onClose={onClose} isOpen={isOpen} isCentered >
+        <Modal onClose={onClose} isOpen={isOpen} isCentered >
           <ModalOverlay />
           <ModalContent m={'1rem 1rem auto'} >
             <ModalHeader>
@@ -126,6 +128,6 @@ const AddTaskModal = React.memo(() => {
 
     </>
   )
-})
+}))
 
 export default AddTaskModal

@@ -1,50 +1,57 @@
-import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import React, { useCallback, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
 // import { useCheckDate } from './Components/hooks/useCheckDate';
-
+import { setName } from './store/slices/configSlice'
+import { authStatus } from './store/slices/configSlice'
 import './App.css';
 
+import Main from './Components/Main/Main';
 import Home from './Components/Home/Home';
+import Layout from './Components/Layout/Layout';
+import LoginPage from './Components/UserLogin/LoginPage';
 
 function App() {
   console.log("-----Render APP");
 
+  const dispatch = useDispatch()
   // const appConfigure = useSelector((store) => store.appConfig)
-  const tasks = useSelector((store) => store.tasks)
+  // const tasks = useSelector((store) => store.tasks)
+  const firstVisit = useSelector((store) => store.appConfig.visit)
+  console.log("▶ ⇛ firstVisit:", firstVisit);
   // const didUpdate = useSelector((store) => store.appConfig.didUpdate)
 
   // const { checkDateHandler } = useCheckDate()
 
-  function setDefaultLocalStorage() {
-    localStorage.setItem('wp_tasks', JSON.stringify(tasks))
-    // console.log("LANG", userLanguage);
-    // const appConfig = localStorage.getItem('wp_config')
-    // if (!appConfig) {
-    //   localStorage.setItem('wp_config', JSON.stringify(appConfigure))
-    // }
-  }
+  // const setDefaultLocalStorage = useCallback(() => localStorage.setItem('wp_tasks', JSON.stringify(tasks)), [tasks])
 
-  useEffect(() => {
-    setDefaultLocalStorage()
-  }, [])
+  // useEffect(() => {
+  //   setDefaultLocalStorage()
+  // }, [setDefaultLocalStorage])
 
 
   useEffect(() => {
     const abortController = new AbortController();
-
-    async function getLogin() {
-      const logenFetch = fetch('localhost:3002/user/login')
-    }
-
-
+    dispatch(authStatus(abortController))
     return () => abortController.abort()
-  }, [])
+  }, [dispatch])
+
 
   return (
+    <>
+      {/* {firstVisit ? (<Navigate to='/home' replace={true} />) : <Navigate to='/main' replace={true} />} */}
+
     <Routes>
-      <Route path='/' element={<Home />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/" element={firstVisit ? <Layout /> : <Main />} >
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
+
     </Routes>
+    </>
+
   );
 }
 

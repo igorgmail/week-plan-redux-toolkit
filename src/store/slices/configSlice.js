@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const getLangFromBrowser = () => {
   const userLanguage = navigator.language || navigator.userLanguage;
@@ -6,22 +6,73 @@ const getLangFromBrowser = () => {
   return 'EN';
 }
 
-const didUpdateData = localStorage.getItem('wp_config')
-const didUpdate = JSON.parse(didUpdateData)?.didUpdate
+// Thunk
+const authStatus = createAsyncThunk(
+  'config/isAuth',
+  async (abortController) => {
+    const response = await fetch('http://localhost:3100/api/user/auth', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      signal: abortController.signal,
+    })
+    if (response.status === 200) {
+      const result = await response.json()
+      return result
+    }
+    return false
+  }
+)
+
+
+// Смотрим в LocalStorage
+// Либо берем значения мз localStorage либо устанавливаем дефолтные
+const configData = localStorage.getItem('wp_config')
+
+const didUpdate = JSON.parse(configData)?.didUpdate
+const firstVisit = JSON.parse(configData)?.visit
+const appLang = JSON.parse(configData)?.lang
+const appUserName = JSON.parse(configData)?.userName
+
 
 const configSlice = createSlice({
   name: 'config',
-  initialState: { lang: getLangFromBrowser(), didUpdate: didUpdate || null, user: null, visit: null },
+  initialState: {
+    lang: appLang || getLangFromBrowser(),
+    didUpdate: didUpdate || null,
+    userName: appUserName || '',
+    visit: firstVisit || 0
+  },
+
   reducers: {
     setLang: (state, action) => {
       state.lang = action.payload.lang
     },
     setDidUpdateTime: (state, action) => {
       state.didUpdate = action.payload
+    },
+    setName: (state, action) => {
+      state.userName = action.payload
+    },
+    setFirstVisit: (state, action) => {
+      state.visit = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(authStatus.rejected, (state, action) => {
+      state.userName = appUserName || ''
+    })
+    builder.addCase(authStatus.fulfilled, (state, action) => {
+      state.userName = action.payload || appUserName
+    })
   }
 
 })
 
 export default configSlice.reducer
-export const { setLang, setSwipe, setDidUpdateTime } = configSlice.actions
+export const { setLang, setSwipe, setDidUpdateTime, setName, setFirstVisit } = configSlice.actions
+export { authStatus }
+
+export const getAppLang = (state) => state.appConfig.lang

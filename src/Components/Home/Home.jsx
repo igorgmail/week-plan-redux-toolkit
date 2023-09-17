@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux";
 
-import Navbar from "../Navbar/Navbar"
 import TasksMenu from "../TasksMenu/TasksMenu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
 import SwipeWrap from '../SwipeWrap/SwipeWrap'
+import UpdateLocaleStorage from '../UpdateLocaleStorage/UpdateLocaleStorage'
 
 import hasTouchScreen from '../../features/isMobileController'
 import { useCheckDate } from '../../hooks/useCheckDate';
@@ -18,7 +18,6 @@ export default function Home() {
   const { checkDateHandler, howToMidnight } = useCheckDate()
 
   const pageNum = useSelector((store) => store.app.page)
-  const appConfig = useSelector((store) => store.appConfig)
   const didUpdate = useSelector((store) => store.appConfig.didUpdate)
 
   // Все задачи обьект в ключах массив обьектов с задачами {1: [Прошлое], 2:[Сегодня], 3:[Завтра], 4: [Неделя] }
@@ -36,18 +35,7 @@ export default function Home() {
   })()
 
 
-  useEffect(() => {
-    console.log('Поменяли stateTasksFromReducer');
-    localStorage.setItem('wp_tasks', JSON.stringify(stateTasksFromReducer))
-  }, [stateTasksFromReducer])
-
-  useEffect(() => {
-    console.log('Поменяли appConfig');
-    localStorage.setItem('wp_config', JSON.stringify(appConfig))
-  }, [appConfig, dispatch])
-
-
-  // Обновление задач
+  // Обновление задач по времени (в 24-00) если время уже прошло
   useEffect(() => {
     if (!didUpdate || Date.now() > didUpdate) {
       checkDateHandler()
@@ -55,6 +43,7 @@ export default function Home() {
     }
   })
 
+  // Устанавливаем таймер до следующей проверки времени
   useEffect(() => {
     const toMidnight = howToMidnight()
     const hourTimer = setTimeout(() => {
@@ -66,14 +55,15 @@ export default function Home() {
     return () => clearTimeout(hourTimer)
   })
   return (
-    <>
-      <Navbar />
       <SwipeWrap>
+
+      <UpdateLocaleStorage>
       <DayBlock></DayBlock>
         <TasksMenu />
       <TaslList activeMenu={activeMenu} visibleList={visibleList} />
-      </SwipeWrap>
-    </>
+      </UpdateLocaleStorage>
+
+    </SwipeWrap>
 
   )
 }

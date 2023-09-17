@@ -1,6 +1,7 @@
 import { useColorMode } from '@chakra-ui/react'
-import { Button, HStack, Switch } from '@chakra-ui/react'
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Button, Flex, Switch } from '@chakra-ui/react'
+
+import { MoonIcon, SunIcon } from '../Icons/Icons';
 
 
 export default function StyleColorMode() {
@@ -19,18 +20,22 @@ export default function StyleColorMode() {
 
   return (
 
-    // <Button onClick={toggleColorMode} variant={'ghost'} size='md' _hover={false} pl={0}>
-    //   {colorMode === 'light' ? <MoonIcon _hover={false} /> : <SunIcon _hover={false} />}
-    // </Button>
-    <HStack>
+    <Flex flexDirection={'row'} alignItems={'center'} w={'100%'} justifyContent={'space-between'}>
 
-      <Button onClick={() => modeHandler('dark')} variant={'ghost'} size='md' _hover={false} pl={0}>
+      <Button onClick={() => modeHandler('dark')}
+        variant={'ghost'} size='md' pl={0} tabIndex={3}>
         <MoonIcon _hover={false} fontSize={colorMode === 'dark' && '1.5rem'} /> 
-    </Button>
-      <Switch size='md' onChange={switchHandler} isChecked={colorMode === 'light'} />
-      <Button onClick={() => modeHandler('light')} variant={'ghost'} size='md' _hover={false} pl={0}>
-        <SunIcon _hover={false} fontSize={colorMode === 'light' && '1.5rem'} />
       </Button>
-    </HStack>
+
+      <Switch size='md' onChange={switchHandler}
+        isChecked={colorMode === 'light'} />
+
+      <Button onClick={() => modeHandler('light')}
+        pr={0}
+        variant={'ghost'} size='md' paddingRight={0}>
+        <SunIcon fontSize={colorMode === 'light' && '1.5rem'} />
+      </Button>
+
+    </Flex>
   )
 }

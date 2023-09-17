@@ -1,5 +1,5 @@
-import React from "react"
-import { useMemo } from "react"
+import React, { useRef } from "react"
+import { useMemo, useState } from "react"
 
 import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 
@@ -14,6 +14,7 @@ export default function TaslList({ activeMenu, visibleList }) {
 
   const pageNum = useSelector((store) => store.app.page)
   const visibleListMemo = useMemo(() => visibleList, [visibleList])
+  const addModalRef = React.createRef()
 
   // Стиль(цвет) для bage 
   const activeBage = ((activeMenu) => {
@@ -22,11 +23,19 @@ export default function TaslList({ activeMenu, visibleList }) {
     if (activeMenu === 'work') return { text: 'Сделать', color: 'custom.task_todo' }
   })(activeMenu)
 
+  const handleSpaceKeyPress = (event) => {
+
+    if (event.ctrlKey && event.key === ' ') {
+      console.log("ENTER SPACE", event.key);
+      addModalRef.current.click()
+    }
+  }
+
   return (
-
-
     <Box
       // className="taskListBlock"
+      tabIndex={0}
+      onKeyDown={handleSpaceKeyPress}
       backgroundColor={'taskListBg'}
       border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}
     >
@@ -38,7 +47,8 @@ export default function TaslList({ activeMenu, visibleList }) {
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
-        {pageNum !== 1 && activeMenu !== 'done' && <AddTaskModal></AddTaskModal>}
+        {pageNum !== 1 && activeMenu !== 'done' &&
+          <AddTaskModal ref={addModalRef} />}
       </Flex>
 
       {visibleListMemo.length > 0

@@ -6,11 +6,22 @@ const theme = extendTheme({
 
   semanticTokens: {
     colors: {
+      navBarBg: {
+        _light: '#52796f',
+        _dark: '#334c46'
+      },
       taskListBg: {
         _light: '#FFFFFF',
         _dark: '#505050',
       },
-
+      drawerUserBg: {
+        _light: '#eceeef',
+        _dark: '#2D3748'
+      },
+      tabsFont: {
+        _light: "green",
+        _dark: 'red'
+      }
     },
   },
 
@@ -49,15 +60,13 @@ const theme = extendTheme({
       task_active: '#adb4b9',
       navBar: '#52796f',
       fontMenu: 'black',
-      drawerUserBg: '#eceeef'
+      '--tabs-color': 'white'
     },
     dark: {
-
       taskDoneBg: '#78a297',
       task_active: '#bfc5c9',
       navBar: '#334c46',
       fontMenu: 'white',
-      drawerUserBg: '#2D3748',
 
     },
 
