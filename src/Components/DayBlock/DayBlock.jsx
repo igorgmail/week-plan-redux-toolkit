@@ -29,7 +29,7 @@ const DayBlock = React.memo(() => {
         <Button isActive={pageNum === 1} transform={pageNum === 1 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" _hover={false} onClick={() => chooseDayHandler(1)}>Прошлое</Button>
         <Button isActive={pageNum === 2} transform={pageNum === 2 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" _hover={false} onClick={() => chooseDayHandler(2)}>Сегодня</Button>
         <Button isActive={pageNum === 3} transform={pageNum === 3 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" _hover={false} onClick={() => chooseDayHandler(3)}>Завтра</Button>
-        <Button isActive={pageNum === 4} transform={pageNum === 4 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" _hover={false} onClick={() => chooseDayHandler(4)}>Неделя</Button>
+        <Button isActive={pageNum === 4} transform={pageNum === 4 && 'translateY(-10px)'} p={['0.5rem', '1rem']} fontSize={font} variant={'outline'} colorScheme="teal" _hover={false} onClick={() => chooseDayHandler(4)}>Будущее</Button>
       </Flex>
       <WhatDayBlock pageNum={pageNum}></WhatDayBlock>
     </Box>

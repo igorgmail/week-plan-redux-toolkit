@@ -8,6 +8,7 @@ import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerF
 import StyleColorMode from '../StyleColorMode/StyleColorMode'
 import LangMenu from '../LangMenu/LangMenu'
 import { LoginIcon, LogOutIcon } from "../Icons/Icons"
+import ErrorAlert from "../ErrorAlert/ErrorAlert"
 
 import { userLogOut } from "../../store/slices/configSlice"
 

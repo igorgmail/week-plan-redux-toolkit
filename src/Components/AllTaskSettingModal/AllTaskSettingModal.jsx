@@ -50,17 +50,20 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
     }
   }
 
-  // const titleForAlert = () => {
-  //   const section = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
-  //   console.log("▶ ⇛ section:", section);
-  //   return section
-  // }
-  const titleForAlert = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
+
+  const titleSection = menu === 'done' ? 'Завешено' : menu === 'all' ? 'Все задачи' : 'Сделать'
 
   const deleteAllHandler = () => {
     console.log("DELETE ALl Handler");
-    console.log("▶ ⇛ titleForAlert:", titleForAlert);
+    console.log("▶ ⇛ titleForAlert:", titleSection);
+
+
     setShowAlert(true)
+  }
+  const deleteAllDoneHandler = () => {
+    console.log("DELETE ALl Done Handler");
+    console.log("▶ ⇛ titleForAlert:", titleSection);
+    // setShowAlert(true)
   }
 
   // Окно подтверждения удаления
@@ -68,8 +71,6 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
     if (result) {
       console.log("Будет все удалено");
       dispatch(removeAllFromOneTab({ pageNum, menu }))
-    } else {
-      console.log("Была отмена");
     }
     setShowAlert(false)
     onClose()
@@ -99,8 +100,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
             <HStack justifyContent={'space-between'}>
               <p>Действия с разделом</p>
               <Tag variant={"outline"} colorScheme='teal'>
-                {titleForAlert}
-
+                {titleSection}
               </Tag>
             </HStack>
 
@@ -108,7 +108,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
           {/* <ModalCloseButton /> */}
 
           <ModalBody m={3}>
-            {showAlert ? (<AlertConfirm text={`Удалить все из ${titleForAlert}?`} alertHandler={alertHandler}></AlertConfirm>) :
+            {showAlert ? (<AlertConfirm text={`Удалить все из ${titleSection}?`} alertHandler={alertHandler}></AlertConfirm>) :
 
             <Flex w={'100%'} justifyContent={'space-between'} flexDirection={'column'} gap={4}>
                 <Button onClick={() => checkAllHandler(statusAll)} color={'white'} backgroundColor={'#2a9d8f'}>

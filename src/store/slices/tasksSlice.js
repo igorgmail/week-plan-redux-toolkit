@@ -67,10 +67,12 @@ const tasksSlice = createSlice({
       const { pageNum, itemKey } = action.payload;
       state[pageNum] = state[pageNum].filter((el) => el.key !== itemKey)
     },
-    // deleteTask: (state, action) => {
-    //   const { pageNum, index } = action.payload;
-    //   state[pageNum] = state[pageNum].filter((el, ind) => ind !== Number(index))
-    // },
+
+    deleteAllDoneTask: (state, action) => {
+      const { pageNum, index } = action.payload;
+      state[pageNum] = state[pageNum].filter((el, ind) => ind !== Number(index))
+    },
+
     checkAllDone: (state, action) => {
       const { pageNum, status } = action.payload
       state[pageNum].map((el) => {

@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from "react"
 import { Box, Button, CloseButton, HStack, Stack, } from '@chakra-ui/react';
 import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody, AlertDialogFooter } from '@chakra-ui/react';
 import { useDisclosure } from "@chakra-ui/react";
 
-export default function AlertMessage({ setShowAlert, showAlert }) {
+export default function ErrorAlert({ setShowAlert, showAlert }) {
 
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -49,4 +50,3 @@ export default function AlertMessage({ setShowAlert, showAlert }) {
     </>
   )
 }
-

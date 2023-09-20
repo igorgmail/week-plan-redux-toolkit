@@ -60,6 +60,7 @@ const AddTaskModal = React.memo(React.forwardRef((props, addModalRef) => {
 
 
   const handleKeyPress = (event) => {
+    console.log("KEYPRESS");
     if (hasTouchScreen()) return
     if (event.ctrlKey && event.key === 'Enter') {
       // Обработка события Ctrl + Enter
@@ -107,7 +108,7 @@ const AddTaskModal = React.memo(React.forwardRef((props, addModalRef) => {
                 overflow="auto"
                 autoFocus
                 defaultValue={textVoice}
-                onKeyUp={!hasTouchScreen() && handleKeyPress}
+                onKeyUp={!hasTouchScreen() ? handleKeyPress : null}
               // focusBorderColor={'red.500'}
               >
               </Textarea>
