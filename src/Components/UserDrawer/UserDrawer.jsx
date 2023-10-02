@@ -53,6 +53,7 @@ export default function UserDrawer({ drawerUser }) {
         placement='right'
         onClose={onClose}
         finalFocusRef={btnRef}
+
       >
         <DrawerOverlay />
         <DrawerContent bg={'drawerUserBg'}>
