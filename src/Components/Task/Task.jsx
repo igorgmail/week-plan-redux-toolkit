@@ -64,7 +64,7 @@ const Task = React.memo(({ item }) => {
         backgroundColor={item.status === 'done' ? taskDoneBg : 'none'}
         >
 
-        <Box onClick={openModal} cursor={'pointer'} w={'100%'} display={'flex'} >
+        <Box onClick={openModal} cursor={'pointer'} w={'100%'} display={'flex'} overflow={'auto'}>
 
 
         <Text
